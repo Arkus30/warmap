@@ -1,29 +1,28 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Sheet1";
 
-async function loadPlanets() {
+async function loadPlanets(){
 
     const response = await fetch(sheetURL);
     const data = await response.json();
 
-    const map = document.getElementById("map-container");
+    const layer = document.getElementById("planets-layer");
 
-    // supprimer anciennes planètes
-    document.querySelectorAll(".planet").forEach(p => p.remove());
+    layer.innerHTML = "";
 
     data.forEach(planet => {
 
-        const p = document.createElement("div");
-        p.className = "planet";
+        const div = document.createElement("div");
+        div.className = "planet";
 
-        p.style.left = planet.x + "%";
-        p.style.top = planet.y + "%";
+        div.style.left = planet.x_percent + "%";
+        div.style.top = planet.y_percent + "%";
 
         const img = document.createElement("img");
         img.src = "planet.png";
 
-        p.appendChild(img);
+        div.appendChild(img);
 
-        map.appendChild(p);
+        layer.appendChild(div);
 
     });
 
