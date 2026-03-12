@@ -1,16 +1,19 @@
 body{
+    margin:0;
     background:black;
+    display:flex;
+    justify-content:center;
 }
 
 #map-container{
     position:relative;
-    width:100%;
+    width:90vw;
     max-width:1200px;
-    margin:auto;
 }
 
 #galaxy-map{
     width:100%;
+    display:block;
 }
 
 .planet{
@@ -19,5 +22,5 @@ body{
 }
 
 .planet img{
-    width:20px;
+    width:18px;
 }
