@@ -1,38 +1,23 @@
 body{
-margin:0;
-background:black;
+    background:black;
 }
 
-#map{
-position:relative;
-width:100%;
+#map-container{
+    position:relative;
+    width:100%;
+    max-width:1200px;
+    margin:auto;
 }
 
-#galaxy{
-width:100%;
-display:block;
+#galaxy-map{
+    width:100%;
 }
 
 .planet{
-position:absolute;
-transform:translate(-50%,-50%);
-cursor:pointer;
+    position:absolute;
+    transform:translate(-50%,-50%);
 }
 
 .planet img{
-width:24px;
-}
-
-#popup{
-position:fixed;
-right:20px;
-top:20px;
-background:#111;
-color:white;
-padding:15px;
-border:1px solid #555;
-}
-
-.hidden{
-display:none;
+    width:20px;
 }
