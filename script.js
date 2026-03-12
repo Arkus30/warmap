@@ -14,8 +14,8 @@ async function loadPlanets(){
         const div = document.createElement("div");
         div.className = "planet";
 
-        div.style.left = planet.x_percent + "%";
-        div.style.top = planet.y_percent + "%";
+        div.style.left = (planet.x_percent * 100) + "%";
+        div.style.top = (planet.y_percent * 100) + "%";
 
         const img = document.createElement("img");
         img.src = "planet.png";
