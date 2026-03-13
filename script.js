@@ -18,8 +18,11 @@ async function loadPlanets(){
         const div = document.createElement("div");
         div.className = "planet";
 
-        div.style.left = (planet.X * 100) + "%";
-        div.style.top = (planet.Y * 100) + "%";
+        const x = parseFloat(String(planet.X).replace(",", "."));
+        const y = parseFloat(String(planet.Y).replace(",", "."));
+
+        div.style.left = (x * 100) + "%";
+        div.style.top = (y * 100) + "%";
 
         const img = document.createElement("img");
         img.src = "planet.png";
