@@ -1,4 +1,4 @@
-const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille1";
+const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Sheet1";
 
 async function loadPlanets(){
 
@@ -11,11 +11,13 @@ async function loadPlanets(){
 
     data.forEach(planet => {
 
+        if(!planet.X || !planet.Y) return;
+
         const div = document.createElement("div");
         div.className = "planet";
 
-        div.style.left = (planet.x_percent * 100) + "%";
-        div.style.top = (planet.y_percent * 100) + "%";
+        div.style.left = (planet.X * 100) + "%";
+        div.style.top = (planet.Y * 100) + "%";
 
         const img = document.createElement("img");
         img.src = "planet.png";
