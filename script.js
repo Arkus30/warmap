@@ -7,44 +7,49 @@ function loadSectors(data){
 
     const sectors = {};
 
-    data.forEach(planet => {
+    data.forEach(p => {
 
-        if(!planet.X || !planet.Y || !planet.Secteur) return;
+        if(!p.X || !p.Y || !p.Secteur) return;
 
-        const x = parseFloat(String(planet.X).replace(",", "."));
-        const y = parseFloat(String(planet.Y).replace(",", "."));
+        const x = parseFloat(String(p.X).replace(",", "."));
+        const y = parseFloat(String(p.Y).replace(",", "."));
 
-        if(!sectors[planet.Secteur]){
-            sectors[planet.Secteur] = {
-                xTotal:0,
-                yTotal:0,
-                count:0,
-                faction:planet.Faction || "inconnue"
+        if(!sectors[p.Secteur]){
+
+            sectors[p.Secteur] = {
+
+                minX:x,
+                maxX:x,
+                minY:y,
+                maxY:y,
+                faction:p.Faction || "inconnue"
+
             };
-        }
 
-        sectors[planet.Secteur].xTotal += x;
-        sectors[planet.Secteur].yTotal += y;
-        sectors[planet.Secteur].count++;
+        }else{
+
+            sectors[p.Secteur].minX = Math.min(sectors[p.Secteur].minX,x);
+            sectors[p.Secteur].maxX = Math.max(sectors[p.Secteur].maxX,x);
+            sectors[p.Secteur].minY = Math.min(sectors[p.Secteur].minY,y);
+            sectors[p.Secteur].maxY = Math.max(sectors[p.Secteur].maxY,y);
+
+        }
 
     });
 
-    Object.values(sectors).forEach(sector => {
-
-        const x = sector.xTotal / sector.count;
-        const y = sector.yTotal / sector.count;
+    Object.values(sectors).forEach(sec => {
 
         const div = document.createElement("div");
 
-        const factionClass = "faction-" + sector.faction.toLowerCase();
+        const factionClass = "faction-" + sec.faction.toLowerCase().replaceAll(" ","-");
 
         div.className = "sector " + factionClass;
 
-        div.style.left = (x * 100) + "%";
-        div.style.top = (y * 100) + "%";
+        div.style.left = (sec.minX * 100) + "%";
+        div.style.top = (sec.minY * 100) + "%";
 
-        div.style.width = "220px";
-        div.style.height = "220px";
+        div.style.width = ((sec.maxX-sec.minX)*100) + "%";
+        div.style.height = ((sec.maxY-sec.minY)*100) + "%";
 
         layer.appendChild(div);
 
