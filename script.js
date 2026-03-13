@@ -5,6 +5,8 @@ async function loadPlanets(){
     const response = await fetch(sheetURL);
     const data = await response.json();
 
+    console.log("Planets loaded:", data);
+
     const layer = document.getElementById("planets-layer");
 
     layer.innerHTML = "";
@@ -22,7 +24,12 @@ async function loadPlanets(){
         const img = document.createElement("img");
         img.src = "planet.png";
 
+        const label = document.createElement("div");
+        label.className = "planet-label";
+        label.innerText = planet.Planète;
+
         div.appendChild(img);
+        div.appendChild(label);
 
         layer.appendChild(div);
 
