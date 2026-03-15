@@ -90,7 +90,7 @@ else if(hull.length === 2){
     const midx = (p1.x+p2.x)/2;
     const midy = (p1.y+p2.y)/2;
 
-    const size = 0.02;
+    const size = 0.05;
 
     hull = [
         p1,
