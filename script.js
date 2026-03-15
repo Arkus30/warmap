@@ -65,12 +65,28 @@ function loadSectors(data){
 
     let hull = convexHull(sec.points);
 
+        const minSize = 0.04;
+
+if(sec.points.length <= 3){
+
+    const cx = sec.points.reduce((a,p)=>a+p.x,0)/sec.points.length;
+    const cy = sec.points.reduce((a,p)=>a+p.y,0)/sec.points.length;
+
+    hull = [
+        {x:cx-minSize,y:cy-minSize},
+        {x:cx+minSize,y:cy-minSize},
+        {x:cx+minSize,y:cy+minSize},
+        {x:cx-minSize,y:cy+minSize}
+    ];
+
+}
+
 const expand = 0.015;
 
 if(hull.length < 3){
 
     const p1 = hull[0];
-    const p2 = hull[1] || {x:p1.x+0.01,y:p1.y};
+    const p2 = hull[1] || {x:p1.x+0.03,y:p1.y};
 
     const dx = p2.x - p1.x;
     const dy = p2.y - p1.y;
@@ -83,7 +99,7 @@ if(hull.length < 3){
     const midx = (p1.x + p2.x) / 2;
     const midy = (p1.y + p2.y) / 2;
 
-    const size = 0.02;
+    const size = 0.06;
 
     hull = [
         p1,
