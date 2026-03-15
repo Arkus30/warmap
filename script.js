@@ -65,7 +65,7 @@ function loadSectors(data){
 
     let hull = convexHull(sec.points);
 
-        const minSize = 0.04;
+        const minSize = 0.01;
 
 if(sec.points.length <= 3){
 
