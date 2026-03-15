@@ -67,7 +67,31 @@ function loadSectors(data){
 
     const expand = 0.015;
 
-    if(hull.length < 3) return;
+    if(hull.length === 1){
+
+    const p = hull[0];
+
+    hull.push(
+        {x:p.x+0.01, y:p.y},
+        {x:p.x, y:p.y+0.01}
+    );
+
+}
+
+if(hull.length === 2){
+
+    const p1 = hull[0];
+    const p2 = hull[1];
+
+    const midx = (p1.x+p2.x)/2;
+    const midy = (p1.y+p2.y)/2;
+
+    hull.push({
+        x:midx + (p2.y-p1.y)*0.02,
+        y:midy - (p2.x-p1.x)*0.02
+    });
+
+}
 
     const div = document.createElement("div");
 
