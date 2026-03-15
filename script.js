@@ -1,5 +1,37 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
 
+function convexHull(points){
+
+    if(points.length < 3) return points;
+
+    points.sort((a,b)=> a.x===b.x ? a.y-b.y : a.x-b.x);
+
+    const cross = (o,a,b)=> (a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x);
+
+    const lower=[];
+    for(const p of points){
+        while(lower.length>=2 && cross(lower[lower.length-2],lower[lower.length-1],p)<=0){
+            lower.pop();
+        }
+        lower.push(p);
+    }
+
+    const upper=[];
+    for(let i=points.length-1;i>=0;i--){
+        const p=points[i];
+        while(upper.length>=2 && cross(upper[upper.length-2],upper[upper.length-1],p)<=0){
+            upper.pop();
+        }
+        upper.push(p);
+    }
+
+    upper.pop();
+    lower.pop();
+
+    return lower.concat(upper);
+
+}
+
 function loadSectors(data){
 
     const layer = document.getElementById("sectors-layer");
@@ -18,44 +50,59 @@ function loadSectors(data){
 
             sectors[p.Secteur] = {
 
-                minX:x,
-                maxX:x,
-                minY:y,
-                maxY:y,
+                points:[],
                 faction:p.Faction || "inconnue"
 
             };
 
-        }else{
-
-            sectors[p.Secteur].minX = Math.min(sectors[p.Secteur].minX,x);
-            sectors[p.Secteur].maxX = Math.max(sectors[p.Secteur].maxX,x);
-            sectors[p.Secteur].minY = Math.min(sectors[p.Secteur].minY,y);
-            sectors[p.Secteur].maxY = Math.max(sectors[p.Secteur].maxY,y);
-
         }
+
+        sectors[p.Secteur].points.push({x,y});
 
     });
 
     Object.values(sectors).forEach(sec => {
 
-        const div = document.createElement("div");
+    const hull = convexHull(sec.points);
 
-        const factionClass = "faction-" + sec.faction.toLowerCase().replaceAll(" ","-");
+    const expand = 0.015;
 
-        div.className = "sector " + factionClass;
+    if(hull.length < 3) return;
 
-        const padding = 0.01; // marge interne du secteur
+    const div = document.createElement("div");
 
-        div.style.left = ((sec.minX + padding) * 100) + "%";
-        div.style.top = ((sec.minY + padding) * 100) + "%";
+    const factionClass = "faction-" + sec.faction.toLowerCase().replaceAll(" ","-");
 
-        div.style.width = ((sec.maxX - sec.minX - padding*2) * 100) + "%";
-        div.style.height = ((sec.maxY - sec.minY - padding*2) * 100) + "%";
+    div.className = "sector " + factionClass;
 
-        layer.appendChild(div);
+    let polygon = "";
 
+    hull.forEach(p=>{
+
+        const cx = 0.5;
+        const cy = 0.5;
+
+        const dx = p.x - cx;
+        const dy = p.y - cy;
+
+        const x = p.x + dx * expand;
+        const y = p.y + dy * expand;
+
+        polygon += (x*100) + "% " + (y*100) + "%,";
     });
+
+    polygon = polygon.slice(0,-1);
+
+    div.style.left = "0";
+    div.style.top = "0";
+    div.style.width = "100%";
+    div.style.height = "100%";
+
+    div.style.clipPath = "polygon(" + polygon + ")";
+
+    layer.appendChild(div);
+
+});
 
 }
 
