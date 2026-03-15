@@ -67,37 +67,30 @@ function loadSectors(data){
 
 const expand = 0.015;
 
-if(hull.length === 1){
-
-    const p = hull[0];
-
-    hull = [
-        {x:p.x-0.01,y:p.y-0.01},
-        {x:p.x+0.01,y:p.y-0.01},
-        {x:p.x,y:p.y+0.01}
-    ];
-
-}
-
-else if(hull.length === 2){
+if(hull.length < 3){
 
     const p1 = hull[0];
-    const p2 = hull[1];
+    const p2 = hull[1] || {x:p1.x+0.01,y:p1.y};
 
     const dx = p2.x - p1.x;
     const dy = p2.y - p1.y;
 
-    const midx = (p1.x+p2.x)/2;
-    const midy = (p1.y+p2.y)/2;
+    const length = Math.sqrt(dx*dx + dy*dy) || 0.01;
 
-    const size = 0.05;
+    const nx = -dy / length;
+    const ny = dx / length;
+
+    const midx = (p1.x + p2.x) / 2;
+    const midy = (p1.y + p2.y) / 2;
+
+    const size = 0.02;
 
     hull = [
         p1,
         p2,
         {
-            x: midx - dy * size,
-            y: midy + dx * size
+            x: midx + nx * size,
+            y: midy + ny * size
         }
     ];
 
@@ -113,8 +106,8 @@ else if(hull.length === 2){
 
     hull.forEach(p=>{
 
-        const cx = 0.5;
-        const cy = 0.5;
+        const cx = hull.reduce((a,p)=>a+p.x,0)/hull.length;
+        const cy = hull.reduce((a,p)=>a+p.y,0)/hull.length;
 
         const dx = p.x - cx;
         const dy = p.y - cy;
