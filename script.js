@@ -45,11 +45,13 @@ function loadSectors(data){
 
         div.className = "sector " + factionClass;
 
-        div.style.left = (sec.minX * 100) + "%";
-        div.style.top = (sec.minY * 100) + "%";
+        const padding = 0.01; // marge interne du secteur
 
-        div.style.width = ((sec.maxX-sec.minX)*100) + "%";
-        div.style.height = ((sec.maxY-sec.minY)*100) + "%";
+        div.style.left = ((sec.minX + padding) * 100) + "%";
+        div.style.top = ((sec.minY + padding) * 100) + "%";
+
+        div.style.width = ((sec.maxX - sec.minX - padding*2) * 100) + "%";
+        div.style.height = ((sec.maxY - sec.minY - padding*2) * 100) + "%";
 
         layer.appendChild(div);
 
