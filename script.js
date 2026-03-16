@@ -63,12 +63,63 @@ function loadSectors(data){
 
 }
 
+function drawFactionBorders(data){
+
+    const layer = document.getElementById("faction-borders");
+    layer.innerHTML = "";
+
+    const factions = {};
+
+    data.forEach(p=>{
+
+        if(!p.X || !p.Y || !p.Faction) return;
+
+        const x = parseFloat(String(p.X).replace(",", "."));
+        const y = parseFloat(String(p.Y).replace(",", "."));
+
+        if(!factions[p.Faction]){
+            factions[p.Faction] = [];
+        }
+
+        factions[p.Faction].push({x,y});
+
+    });
+
+    Object.entries(factions).forEach(([faction,points])=>{
+
+        if(points.length < 3) return;
+
+        const hull = convexHull(points);
+
+        let polygon = "";
+
+        hull.forEach(p=>{
+            polygon += (p.x*100)+"% "+(p.y*100)+"%,";
+        });
+
+        polygon = polygon.slice(0,-1);
+
+        const div = document.createElement("div");
+
+        div.className = "faction-border faction-" + faction.toLowerCase().replaceAll(" ","-");
+
+        div.style.clipPath = "polygon("+polygon+")";
+
+        div.style.border = "4px solid white";
+
+        layer.appendChild(div);
+
+    });
+
+}
+
 async function loadPlanets(){
 
     const response = await fetch(sheetURL);
     const data = await response.json();
 
     loadSectors(data);
+    drawFactionBorders(data);
 
     console.log("Planets loaded:", data);
 
