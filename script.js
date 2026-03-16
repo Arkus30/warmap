@@ -6,7 +6,7 @@ function loadSectors(data){
     layer.innerHTML = "";
 
     const points = [];
-    const meta = [];
+    const factions = [];
 
     data.forEach(p => {
 
@@ -17,55 +17,34 @@ function loadSectors(data){
 
         points.push([x,y]);
 
-        meta.push({
-            secteur:p.Secteur,
-            faction:p.Faction || "inconnue"
+        factions.push({
+            faction:p.Faction || "inconnue",
+            secteur:p.Secteur
         });
 
     });
 
+    if(points.length === 0) return;
+
     const delaunay = d3.Delaunay.from(points);
     const voronoi = delaunay.voronoi([0,0,1,1]);
-
-    const sectors = {};
 
     for(let i=0;i<points.length;i++){
 
         const polygon = voronoi.cellPolygon(i);
         if(!polygon) continue;
 
-        const secteur = meta[i].secteur;
-
-        if(!sectors[secteur]){
-
-            sectors[secteur] = {
-                faction:meta[i].faction,
-                cells:[]
-            };
-
-        }
-
-        sectors[secteur].cells.push(polygon);
-
-    }
-
-    Object.values(sectors).forEach(sec => {
-
         const div = document.createElement("div");
 
-        const factionClass = "faction-" + sec.faction.toLowerCase().replaceAll(" ","-");
+        const factionClass = "faction-" + factions[i].faction.toLowerCase().replaceAll(" ","-");
 
         div.className = "sector " + factionClass;
 
         let clip = "";
 
-        sec.cells.forEach(cell => {
+        polygon.forEach(p => {
 
-            cell.forEach(p => {
-
-                clip += (p[0]*100)+"% "+(p[1]*100)+"%,";
-
-            });
+            clip += (p[0]*100)+"% "+(p[1]*100)+"%,";
 
         });
 
@@ -80,7 +59,7 @@ function loadSectors(data){
 
         layer.appendChild(div);
 
-    });
+    }
 
 }
 
