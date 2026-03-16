@@ -81,7 +81,7 @@ function drawFactionBorders(data){
             factions[p.Faction] = [];
         }
 
-        factions[p.Faction].push({x,y});
+        factions[p.Faction].push([x,y]);
 
     });
 
@@ -89,12 +89,14 @@ function drawFactionBorders(data){
 
         if(points.length < 3) return;
 
-        const hull = convexHull(points);
+        const delaunay = d3.Delaunay.from(points);
+        const hull = delaunay.hull;
 
         let polygon = "";
 
-        hull.forEach(p=>{
-            polygon += (p.x*100)+"% "+(p.y*100)+"%,";
+        hull.forEach(i=>{
+            const p = points[i];
+            polygon += (p[0]*100)+"% "+(p[1]*100)+"%,";
         });
 
         polygon = polygon.slice(0,-1);
@@ -104,7 +106,6 @@ function drawFactionBorders(data){
         div.className = "faction-border faction-" + faction.toLowerCase().replaceAll(" ","-");
 
         div.style.clipPath = "polygon("+polygon+")";
-
         div.style.border = "4px solid white";
 
         layer.appendChild(div);
