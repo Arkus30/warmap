@@ -1,7 +1,5 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
 
-.replaceAll("'", "-")
-
 function loadSectors(data){
 
     const layer = document.getElementById("sectors-layer");
@@ -38,7 +36,10 @@ function loadSectors(data){
 
         const div = document.createElement("div");
 
-        const factionClass = "faction-" + factions[i].faction.toLowerCase().replaceAll(" ","-");
+        const factionClass = "faction-" + factions[i].faction
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-");
 
         div.className = "sector " + factionClass;
 
@@ -105,7 +106,10 @@ function drawFactionBorders(data){
 
         const div = document.createElement("div");
 
-        div.className = "faction-border faction-" + faction.toLowerCase().replaceAll(" ","-");
+        div.className = "faction-border faction-" + faction
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-");
 
         div.style.clipPath = "polygon("+polygon+")";
         div.style.border = "4px solid white";
