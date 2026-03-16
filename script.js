@@ -1,43 +1,12 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
 
-function convexHull(points){
-
-    if(points.length < 3) return points;
-
-    points.sort((a,b)=> a.x===b.x ? a.y-b.y : a.x-b.x);
-
-    const cross = (o,a,b)=> (a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x);
-
-    const lower=[];
-    for(const p of points){
-        while(lower.length>=2 && cross(lower[lower.length-2],lower[lower.length-1],p)<=0){
-            lower.pop();
-        }
-        lower.push(p);
-    }
-
-    const upper=[];
-    for(let i=points.length-1;i>=0;i--){
-        const p=points[i];
-        while(upper.length>=2 && cross(upper[upper.length-2],upper[upper.length-1],p)<=0){
-            upper.pop();
-        }
-        upper.push(p);
-    }
-
-    upper.pop();
-    lower.pop();
-
-    return lower.concat(upper);
-
-}
-
 function loadSectors(data){
 
     const layer = document.getElementById("sectors-layer");
     layer.innerHTML = "";
 
-    const sectors = {};
+    const points = [];
+    const factions = [];
 
     data.forEach(p => {
 
@@ -46,106 +15,51 @@ function loadSectors(data){
         const x = parseFloat(String(p.X).replace(",", "."));
         const y = parseFloat(String(p.Y).replace(",", "."));
 
-        if(!sectors[p.Secteur]){
+        points.push([x,y]);
 
-            sectors[p.Secteur] = {
-
-                points:[],
-                faction:p.Faction || "inconnue"
-
-            };
-
-        }
-
-        sectors[p.Secteur].points.push({x,y});
+        factions.push({
+            faction:p.Faction || "inconnue",
+            secteur:p.Secteur
+        });
 
     });
 
-    Object.values(sectors).forEach(sec => {
+    if(points.length === 0) return;
 
-    let hull = convexHull(sec.points);
+    const delaunay = d3.Delaunay.from(points);
+    const voronoi = delaunay.voronoi([0,0,1,1]);
 
-        const minSize = 0.01;
+    for(let i=0;i<points.length;i++){
 
-if(sec.points.length <= 3){
+        const polygon = voronoi.cellPolygon(i);
+        if(!polygon) continue;
 
-    const cx = sec.points.reduce((a,p)=>a+p.x,0)/sec.points.length;
-    const cy = sec.points.reduce((a,p)=>a+p.y,0)/sec.points.length;
+        const div = document.createElement("div");
 
-    hull = [
-        {x:cx-minSize,y:cy-minSize},
-        {x:cx+minSize,y:cy-minSize},
-        {x:cx+minSize,y:cy+minSize},
-        {x:cx-minSize,y:cy+minSize}
-    ];
+        const factionClass = "faction-" + factions[i].faction.toLowerCase().replaceAll(" ","-");
 
-}
+        div.className = "sector " + factionClass;
 
-const expand = 0.015;
+        let clip = "";
 
-if(hull.length < 3){
+        polygon.forEach(p => {
 
-    const p1 = hull[0];
-    const p2 = hull[1] || {x:p1.x+0.03,y:p1.y};
+            clip += (p[0]*100)+"% "+(p[1]*100)+"%,";
 
-    const dx = p2.x - p1.x;
-    const dy = p2.y - p1.y;
+        });
 
-    const length = Math.sqrt(dx*dx + dy*dy) || 0.01;
+        clip = clip.slice(0,-1);
 
-    const nx = -dy / length;
-    const ny = dx / length;
+        div.style.left = "0";
+        div.style.top = "0";
+        div.style.width = "100%";
+        div.style.height = "100%";
 
-    const midx = (p1.x + p2.x) / 2;
-    const midy = (p1.y + p2.y) / 2;
+        div.style.clipPath = "polygon(" + clip + ")";
 
-    const size = 0.02;
+        layer.appendChild(div);
 
-    hull = [
-        p1,
-        p2,
-        {
-            x: midx + nx * size,
-            y: midy + ny * size
-        }
-    ];
-
-}
-
-    const div = document.createElement("div");
-
-    const factionClass = "faction-" + sec.faction.toLowerCase().replaceAll(" ","-");
-
-    div.className = "sector " + factionClass;
-
-    let polygon = "";
-
-    hull.forEach(p=>{
-
-        const cx = hull.reduce((a,p)=>a+p.x,0)/hull.length;
-        const cy = hull.reduce((a,p)=>a+p.y,0)/hull.length;
-
-        const dx = p.x - cx;
-        const dy = p.y - cy;
-
-        const x = p.x + dx * expand;
-        const y = p.y + dy * expand;
-
-        polygon += (x*100) + "% " + (y*100) + "%,";
-    });
-
-    polygon = polygon.slice(0,-1);
-
-    div.style.left = "0";
-    div.style.top = "0";
-    div.style.width = "100%";
-    div.style.height = "100%";
-
-    div.style.clipPath = "polygon(" + polygon + ")";
-
-    layer.appendChild(div);
-
-});
+    }
 
 }
 
