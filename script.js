@@ -66,67 +66,12 @@ function loadSectors(data){
 
 }
 
-function drawFactionBorders(data){
-
-    const layer = document.getElementById("faction-borders");
-    layer.innerHTML = "";
-
-    const factions = {};
-
-    data.forEach(p=>{
-
-        if(!p.X || !p.Y || !p.Faction) return;
-
-        const x = parseFloat(String(p.X).replace(",", "."));
-        const y = parseFloat(String(p.Y).replace(",", "."));
-
-        if(!factions[p.Faction]){
-            factions[p.Faction] = [];
-        }
-
-        factions[p.Faction].push([x,y]);
-
-    });
-
-    Object.entries(factions).forEach(([faction,points])=>{
-
-        if(points.length < 3) return;
-
-        const delaunay = d3.Delaunay.from(points);
-        const hull = delaunay.hull;
-
-        let polygon = "";
-
-        hull.forEach(i=>{
-            const p = points[i];
-            polygon += (p[0]*100)+"% "+(p[1]*100)+"%,";
-        });
-
-        polygon = polygon.slice(0,-1);
-
-        const div = document.createElement("div");
-
-        div.className = "faction-border faction-" + faction
-        .toLowerCase()
-        .replaceAll(" ","-")
-        .replaceAll("'","-");
-
-        div.style.clipPath = "polygon("+polygon+")";
-        div.style.border = "4px solid white";
-
-        layer.appendChild(div);
-
-    });
-
-}
-
 async function loadPlanets(){
 
     const response = await fetch(sheetURL);
     const data = await response.json();
 
     loadSectors(data);
-    drawFactionBorders(data);
 
     console.log("Planets loaded:", data);
 
