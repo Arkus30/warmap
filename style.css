@@ -73,42 +73,39 @@ body{
     opacity:0.35;
     pointer-events:none;
 
-    /* frontière noire principale */
-    border:3px solid rgba(0,0,0,0.85);
-
-    /* liseré clair autour */
-    box-shadow:0 0 0 1.5px rgba(255,255,255,0.55);
-
-    /* rend les contours plus nets */
-    filter:drop-shadow(0 0 2px rgba(0,0,0,0.8));
-}
-
-.sector{
-    backdrop-filter:brightness(1.05);
+    /* frontière simple et légère */
+    border:2px solid rgba(255,255,255,0.35);
 }
 
 /* factions */
+/* frontières visibles */
 
 .faction-culte-de-elle{
 background:#ff2a2a;
+border-color:#ff9a9a;
 }
 
 .faction-saint-empire-d\'aéris{
 background:#2ad2ff;
+border-color:#a4ecff;
 }
 
 .faction-empire-chimérique{
 background:#b865e4;
+border-color:#e1b5ff;
 }
 
 .faction-illuministes{
 background:#9589ef;
+border-color:#c7c1ff;
 }
 
 .faction-alliance-architecte{
 background:#4a86e8;
+border-color:#9bbcff;
 }
 
 .faction-neutre{
 background:#888;
+border-color:#ccc;
 }
