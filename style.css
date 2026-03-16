@@ -83,6 +83,10 @@ body{
     filter:drop-shadow(0 0 2px rgba(0,0,0,0.8));
 }
 
+.sector{
+    backdrop-filter:brightness(1.05);
+}
+
 /* factions */
 
 .faction-culte-de-elle{
