@@ -69,9 +69,10 @@ body{
 }
 
 .sector{
-position:absolute;
-opacity:0.25;
-pointer-events:none;
+    position:absolute;
+    opacity:0.35;
+    border:2px solid rgba(255,255,255,0.6);
+    pointer-events:none;
 }
 
 /* factions */
