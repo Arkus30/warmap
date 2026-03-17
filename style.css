@@ -148,6 +148,8 @@ body{
     left:50%;
     transform:translate(-50%, -50%);
 
+    pointer-events:auto;
+
     width:300px;
     background:rgba(0,0,0,0.95);
     border:2px solid cyan;
