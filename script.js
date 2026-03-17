@@ -93,8 +93,23 @@ async function loadPlanets(){
         div.style.top = (y * 100) + "%";
 
         const img = document.createElement("img");
-        img.src = "planet.png";
+        const climate = (planet.Climat || "rocheuse")
+        .toLowerCase()
+        .replaceAll(" ","-");
 
+        const possible = [
+        "rocheuse",
+        "gazeuse",
+        "océanique",
+        "végétation-dense",
+        "chaleur-ardente",
+        "chaleur-intense",
+        "froid-intense",
+        "trou-noir",
+        "aucun-modificateur"
+        ];
+
+        img.src = possible.includes(climate) ? climate + ".png" : "rocheuse.png";
         const label = document.createElement("div");
         label.className = "planet-label";
         label.innerText = planet.Planète;
