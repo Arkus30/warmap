@@ -85,7 +85,17 @@ async function loadPlanets(){
         if(!planet.X || !planet.Y) return;
 
         const div = document.createElement("div");
+        div.dataset.name = planet.Planète || "";
+        div.dataset.faction = planet.Faction || "";
+        div.dataset.modifiers = planet.Modificateurs || "";
         div.className = "planet";
+        div.addEventListener("mouseenter", () => {
+        div.classList.add("hovered");
+        });
+
+        div.addEventListener("mouseleave", () => {
+        div.classList.remove("hovered");
+        });
 
         const x = parseFloat(String(planet.X).replace(",", "."));
         const y = parseFloat(String(planet.Y).replace(",", "."));
