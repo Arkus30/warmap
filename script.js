@@ -1,5 +1,47 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
 
+function openPlanetPopup(planet){
+
+    const uiLayer = document.getElementById("ui-layer");
+    uiLayer.innerHTML = "";
+
+    const popup = document.createElement("div");
+    popup.className = "planet-popup";
+
+    popup.innerHTML = `
+        <div class="popup-header">
+            <span class="popup-title">${planet.Planète || "Inconnue"}</span>
+            <span class="popup-close">✖</span>
+        </div>
+
+        <div class="popup-body">
+            <div><b>Faction :</b> ${planet.Faction || "Neutre"}</div>
+            <div><b>Niveau :</b> ${planet.Niveau || "?"}</div>
+            <div><b>PC :</b> ${(planet.Niveau || 1) * 100}</div>
+            <div><b>Climat :</b> ${planet.Climat || "Inconnu"}</div>
+
+            ${
+                planet.Modificateurs
+                ? `<div><b>Modificateurs :</b> ${planet.Modificateurs}</div>`
+                : ""
+            }
+
+            ${
+                planet.Objectifs
+                ? `<div><b>Objectifs spéciaux :</b> ${planet.Objectifs}</div>`
+                : ""
+            }
+        </div>
+    `;
+
+    // bouton fermer
+    popup.querySelector(".popup-close").onclick = () => {
+        uiLayer.innerHTML = "";
+    };
+
+    uiLayer.appendChild(popup);
+}
+
 function loadSectors(data){
 
     const layer = document.getElementById("sectors-layer");
@@ -152,6 +194,9 @@ async function loadPlanets(){
 }
 
         layer.appendChild(div);
+        div.addEventListener("click", () => {
+        openPlanetPopup(planet);
+        });
 
     });
 
