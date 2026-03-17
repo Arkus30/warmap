@@ -2,6 +2,13 @@ const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxz
 
 function openPlanetPopup(planet){
 
+    const factionClass = "faction-" + (planet.Faction || "neutre")
+    .toLowerCase()
+    .replaceAll(" ","-")
+    .replaceAll("'","-");
+
+    popup.classList.add(factionClass);
+
     const uiLayer = document.getElementById("ui-layer");
     uiLayer.innerHTML = "";
 
