@@ -54,6 +54,8 @@ body{
     white-space:nowrap;
 
     display:none;
+    position:absolute;
+    z-index:100;
 }
 
 .planet:hover .planet-label{
