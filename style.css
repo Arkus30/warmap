@@ -76,6 +76,17 @@ body{
     pointer-events:none;
 }
 
+.capital-icon{
+    position:absolute;
+    top:-10px;
+    right:-10px;
+
+    width:12px;
+    height:12px;
+
+    pointer-events:none;
+}
+
 /* factions */
 /* frontières visibles */
 
