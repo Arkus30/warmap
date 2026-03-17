@@ -144,7 +144,7 @@ body{
 
 .planet-popup{
     position:absolute;
-
+    background:black !important;
     pointer-events:auto;
 
     width:300px;
