@@ -207,3 +207,47 @@ background:#4a86e8;
 .faction-neutre{
 background:#888;
 }
+
+/* couleurs dynamiques popup */
+
+.planet-popup.faction-culte-de-elle{
+    border-color:#ff2a2a;
+}
+.planet-popup.faction-culte-de-elle .popup-header{
+    color:#ff2a2a;
+}
+
+.planet-popup.faction-saint-empire-d-aéris{
+    border-color:#2ad2ff;
+}
+.planet-popup.faction-saint-empire-d-aéris .popup-header{
+    color:#2ad2ff;
+}
+
+.planet-popup.faction-empire-chimérique{
+    border-color:#b865e4;
+}
+.planet-popup.faction-empire-chimérique .popup-header{
+    color:#b865e4;
+}
+
+.planet-popup.faction-illuministes{
+    border-color:#9589ef;
+}
+.planet-popup.faction-illuministes .popup-header{
+    color:#9589ef;
+}
+
+.planet-popup.faction-alliance-architecte{
+    border-color:#4a86e8;
+}
+.planet-popup.faction-alliance-architecte .popup-header{
+    color:#4a86e8;
+}
+
+.planet-popup.faction-neutre{
+    border-color:#888;
+}
+.planet-popup.faction-neutre .popup-header{
+    color:#888;
+}
