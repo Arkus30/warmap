@@ -89,6 +89,19 @@ body{
     z-index:5;
 }
 
+.modifier-icon{
+    position:absolute;
+    top:50%;
+    right:-14px;
+    transform:translateY(-50%);
+
+    width:14px;
+    height:14px;
+
+    pointer-events:none;
+    z-index:5;
+}
+
 /* factions */
 /* frontières visibles */
 
