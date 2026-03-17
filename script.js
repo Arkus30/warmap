@@ -1,6 +1,6 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
 
-function openPlanetPopup(planet){
+function openPlanetPopup(planet, element){
 
     const uiLayer = document.getElementById("ui-layer");
     uiLayer.innerHTML = "";
@@ -160,7 +160,7 @@ async function loadPlanets(){
 
         div.addEventListener("click", (e) => {
         e.stopPropagation();
-        openPlanetPopup(planet);
+        openPlanetPopup(planet, div);
         });
     
         const x = parseFloat(String(planet.X).replace(",", "."));
