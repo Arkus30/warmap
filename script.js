@@ -110,8 +110,8 @@ async function loadPlanets(){
         "chaleur-intense",
         "froid-intense",
         "trou-noir",
-        "aucun-modificateur"
-        "terraformation-chimérique"
+        "aucun-modificateur",
+        "terraformation-chimérique",
         "artificielle"
         ];
 
