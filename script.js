@@ -93,7 +93,10 @@ async function loadPlanets(){
         div.style.top = (y * 100) + "%";
 
         const img = document.createElement("img");
-        const isCapital = (planet.Capitale || "").toLowerCase() === "oui";
+        const isCapital = (planet.Capitale || "")
+        .trim()
+        .toLowerCase() === "oui";
+        console.log(planet.Planète, "Capitale =", planet.Capitale);
         const climate = (planet.Climat || "rocheuse")
         .toLowerCase()
         .replaceAll(" ","-");
