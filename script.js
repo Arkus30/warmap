@@ -111,6 +111,8 @@ async function loadPlanets(){
         "froid-intense",
         "trou-noir",
         "aucun-modificateur"
+        "terraformation-chimérique"
+        "artificielle"
         ];
 
         img.src = possible.includes(climate) ? climate + ".png" : "rocheuse.png";
