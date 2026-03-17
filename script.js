@@ -9,6 +9,7 @@ function loadSectors(data){
     const factions = [];
 
     data.forEach(p => {
+        const hasModifier = (planet.Modificateurs || "").trim() !== "";
 
         if(!p.X || !p.Y || !p.Secteur) return;
 
@@ -97,6 +98,14 @@ async function loadPlanets(){
         .trim()
         .toLowerCase() === "oui";
         console.log(planet.Planète, "Capitale =", planet.Capitale);
+        if(hasModifier){
+
+        const modIcon = document.createElement("img");
+        modIcon.src = "modificateur.png";
+        modIcon.className = "modifier-icon";
+
+        div.appendChild(modIcon);
+    }
         const climate = (planet.Climat || "rocheuse")
         .toLowerCase()
         .replaceAll(" ","-");
