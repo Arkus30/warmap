@@ -93,6 +93,7 @@ async function loadPlanets(){
         div.style.top = (y * 100) + "%";
 
         const img = document.createElement("img");
+        const isCapital = (planet.Capitale || "").toLowerCase() === "oui";
         const climate = (planet.Climat || "rocheuse")
         .toLowerCase()
         .replaceAll(" ","-");
@@ -116,6 +117,14 @@ async function loadPlanets(){
 
         div.appendChild(img);
         div.appendChild(label);
+        if(isCapital){
+
+        const capitalIcon = document.createElement("img");
+        capitalIcon.src = "capitale.png";
+        capitalIcon.className = "capital-icon";
+
+    div.appendChild(capitalIcon);
+}
 
         layer.appendChild(div);
 
