@@ -42,11 +42,6 @@ function openPlanetPopup(planet){
     uiLayer.appendChild(popup);
 }
 
-div.addEventListener("click", (e) => {
-    e.stopPropagation();
-    openPlanetPopup(planet);
-});
-
 function loadSectors(data){
 
     const layer = document.getElementById("sectors-layer");
@@ -201,8 +196,8 @@ async function loadPlanets(){
         capitalIcon.className = "capital-icon";
 
     div.appendChild(capitalIcon);
-}
-
+    }
+    layer.appendChild(div);
     });
 
 }
