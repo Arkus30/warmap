@@ -78,15 +78,15 @@ body{
 
 .capital-icon{
     position:absolute;
-    top:-10px;
-    right:-10px;
+    top:-16px;
+    left:50%;
+    transform:translateX(-50%);
 
     width:18px;
     height:18px;
 
     pointer-events:none;
     z-index:5;
-}
 }
 
 /* factions */
