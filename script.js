@@ -18,7 +18,7 @@ function openPlanetPopup(planet){
             <div><b>Faction :</b> ${planet.Faction || "Neutre"}</div>
             <div><b>Niveau :</b> ${planet.Niveau || "?"}</div>
             <div><b>PC :</b> ${(planet.Niveau || 1) * 100}</div>
-            <div><b>Climat :</b> ${planet.ModificateursPlanètaires || "Inconnu"}</div>
+            <div><b>Climat :</b> ${planet.Climat || "Inconnu"}</div>
 
             ${
                 planet.Modificateurs
