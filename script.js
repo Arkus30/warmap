@@ -144,6 +144,11 @@ async function loadPlanets(){
         div.classList.remove("hovered");
         });
 
+        div.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openPlanetPopup(planet);
+        });
+    
         const x = parseFloat(String(planet.X).replace(",", "."));
         const y = parseFloat(String(planet.Y).replace(",", "."));
 
@@ -197,11 +202,6 @@ async function loadPlanets(){
 
     div.appendChild(capitalIcon);
 }
-
-        layer.appendChild(div);
-        div.addEventListener("click", () => {
-        openPlanetPopup(planet);
-        });
 
     });
 
