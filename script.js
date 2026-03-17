@@ -2,13 +2,6 @@ const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxz
 
 function openPlanetPopup(planet){
 
-    const factionClass = "faction-" + (planet.Faction || "neutre")
-    .toLowerCase()
-    .replaceAll(" ","-")
-    .replaceAll("'","-");
-
-    popup.classList.add(factionClass);
-
     const uiLayer = document.getElementById("ui-layer");
     uiLayer.innerHTML = "";
 
@@ -42,6 +35,23 @@ function openPlanetPopup(planet){
             }
         </div>
     `;
+    
+    const rect = element.getBoundingClientRect();
+    const container = document.getElementById("map-container").getBoundingClientRect();
+
+    const x = rect.left - container.left + rect.width / 2;
+    const y = rect.top - container.top;
+
+    popup.style.left = x + "px";
+    popup.style.top = (y - 10) + "px";
+    popup.style.transform = "translate(-50%, -100%)";
+
+    const factionClass = "faction-" + (planet.Faction || "neutre")
+    .toLowerCase()
+    .replaceAll(" ","-")
+    .replaceAll("'","-");
+
+    popup.classList.add(factionClass);
 
     // bouton fermer
     popup.querySelector(".popup-close").onclick = () => {
