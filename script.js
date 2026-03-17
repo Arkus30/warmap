@@ -9,7 +9,7 @@ function loadSectors(data){
     const factions = [];
 
     data.forEach(p => {
-        const hasModifier = (planet.Modificateurs || "").trim() !== "";
+        const hasModifier = (p.Modificateurs || "").trim() !== "";
 
         if(!p.X || !p.Y || !p.Secteur) return;
 
@@ -98,6 +98,7 @@ async function loadPlanets(){
         .trim()
         .toLowerCase() === "oui";
         console.log(planet.Planète, "Capitale =", planet.Capitale);
+        const hasModifier = (planet.Modificateurs || "").trim() !== "";
         if(hasModifier){
 
         const modIcon = document.createElement("img");
