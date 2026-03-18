@@ -101,13 +101,18 @@ if(transformY === "0%"){
     popup.classList.add(factionClass);
 
     popup.querySelector(".popup-close").onclick = () => {
-        popup.classList.remove("show");
-        popup.classList.add("hide");
 
-        setTimeout(() => {
-            uiLayer.innerHTML = "";
-        }, 200);
-    };
+    // retirer la sélection visuelle
+    document.querySelectorAll(".planet")
+        .forEach(p => p.classList.remove("selected"));
+
+    popup.classList.remove("show");
+    popup.classList.add("hide");
+
+    setTimeout(() => {
+        uiLayer.innerHTML = "";
+    }, 200);
+};
 
     setTimeout(() => {
         popup.classList.add("show");
