@@ -210,7 +210,6 @@ body{
     position:absolute;
     left:50%;
     transform:translateX(-50%);
-
     bottom:-8px;
 
     width:0;
@@ -218,21 +217,15 @@ body{
 
     border-left:8px solid transparent;
     border-right:8px solid transparent;
-    border-top:8px solid black;
+    border-top:8px solid var(--faction-color, cyan);
 }
 
+/* si popup en dessous */
 .planet-popup.below::after{
     top:-8px;
     bottom:auto;
 
     border-top:none;
-    border-bottom:8px solid black;
-}
-
-.planet-popup::after{
-    border-top:8px solid var(--faction-color, cyan);
-}
-.planet-popup.below::after{
     border-bottom:8px solid var(--faction-color, cyan);
 }
 
