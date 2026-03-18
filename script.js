@@ -54,9 +54,11 @@ const container = document.getElementById("map-container").getBoundingClientRect
 let x = rect.left - container.left + rect.width / 2;
 let y = rect.top - container.top;
 
+uiLayer.appendChild(popup);
+
 // taille du popup (approx ou réelle après insertion)
-const popupWidth = 300;
-const popupHeight = 180; // ajuste si besoin
+const popupWidth = popup.offsetWidth;
+const popupHeight = popup.offsetHeight;
 
 // --- gestion verticale ---
 let finalY = y - 10; // au-dessus par défaut
@@ -86,6 +88,7 @@ if(finalX + popupWidth/2 > container.width - margin){
 popup.style.left = finalX + "px";
 popup.style.top = finalY + "px";
 popup.style.transform = `translate(-50%, ${transformY})`;
+popup.style.transformOrigin = "center";
 if(transformY === "0%"){
     popup.classList.add("below");
 }
@@ -101,8 +104,6 @@ if(transformY === "0%"){
             uiLayer.innerHTML = "";
         }, 200);
     };
-
-    uiLayer.appendChild(popup);
 
     setTimeout(() => {
         popup.classList.add("show");
