@@ -161,13 +161,13 @@ body{
 
 .planet-popup{
     opacity:0;
-    transform:translate(-50%, -120%) scale(0.9);
+    scale:0.9;
     transition:all 0.2s ease;
 }
 
 .planet-popup.show{
     opacity:1;
-    transform:translate(-50%, -100%) scale(1);
+    scale:1;
 }
 
 .planet-popup.hide{
