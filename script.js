@@ -1,6 +1,10 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
 
 function openPlanetPopup(planet, element){
+    document.querySelectorAll(".planet").forEach(p => {
+    p.classList.remove("selected");
+    });
+    element.classList.add("selected");
 
     const uiLayer = document.getElementById("ui-layer");
     uiLayer.innerHTML = "";
@@ -82,6 +86,7 @@ if(finalX + popupWidth/2 > container.width - margin){
 popup.style.left = finalX + "px";
 popup.style.top = finalY + "px";
 popup.style.transform = `translate(-50%, ${transformY})`;
+popup.classList.add("below");
 
     const factionClass = "faction-" + factionSlug;
     popup.classList.add(factionClass);
