@@ -230,10 +230,15 @@ body{
 }
 
 .planet-popup::after{
-    border-top:8px solid currentColor;
+    border-top:8px solid var(--faction-color, cyan);
 }
 .planet-popup.below::after{
-    border-bottom:8px solid currentColor;
+    border-bottom:8px solid var(--faction-color, cyan);
+}
+
+.planet.selected img{
+    transform:scale(1.4);
+    filter:drop-shadow(0 0 8px var(--faction-color, cyan));
 }
 
 .faction-culte-de-elle.selected img{
@@ -263,34 +268,18 @@ body{
 /* factions */
 /* frontières visibles */
 
-.faction-culte-de-elle{
-background:#ff2a2a;
-}
-
-.faction-saint-empire-d-aéris{
-background:#2ad2ff;
-}
-
-.faction-empire-chimérique{
-background:#b865e4;
-}
-
-.faction-illuministes{
-background:#9589ef;
-}
-
-.faction-alliance-architecte{
-background:#4a86e8;
-}
-
-.faction-neutre{
-background:#888;
-}
+.faction-culte-de-elle{ --faction-color:#ff2a2a; }
+.faction-saint-empire-d-aéris{ --faction-color:#2ad2ff; }
+.faction-empire-chimérique{ --faction-color:#b865e4; }
+.faction-illuministes{ --faction-color:#9589ef; }
+.faction-alliance-architecte{ --faction-color:#4a86e8; }
+.faction-neutre{ --faction-color:#888; }
 
 /* couleurs dynamiques popup */
 
 .planet-popup.faction-culte-de-elle{
     border-color:#ff2a2a;
+    --faction-color:#ff2a2a;
 }
 .planet-popup.faction-culte-de-elle .popup-header{
     color:#ff2a2a;
@@ -298,6 +287,7 @@ background:#888;
 
 .planet-popup.faction-saint-empire-d-aéris{
     border-color:#2ad2ff;
+    --faction-color:#2ad2ff;
 }
 .planet-popup.faction-saint-empire-d-aéris .popup-header{
     color:#2ad2ff;
@@ -305,6 +295,7 @@ background:#888;
 
 .planet-popup.faction-empire-chimérique{
     border-color:#b865e4;
+    --faction-color:#b865e4;
 }
 .planet-popup.faction-empire-chimérique .popup-header{
     color:#b865e4;
@@ -312,6 +303,7 @@ background:#888;
 
 .planet-popup.faction-illuministes{
     border-color:#9589ef;
+    --faction-color:#9589ef;
 }
 .planet-popup.faction-illuministes .popup-header{
     color:#9589ef;
@@ -319,6 +311,7 @@ background:#888;
 
 .planet-popup.faction-alliance-architecte{
     border-color:#4a86e8;
+    --faction-color:#4a86e8;
 }
 .planet-popup.faction-alliance-architecte .popup-header{
     color:#4a86e8;
@@ -326,6 +319,7 @@ background:#888;
 
 .planet-popup.faction-neutre{
     border-color:#888;
+    --faction-color:#888;
 }
 .planet-popup.faction-neutre .popup-header{
     color:#888;
