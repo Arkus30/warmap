@@ -324,3 +324,10 @@ body{
 .planet-popup.faction-neutre .popup-header{
     color:#888;
 }
+
+.sector.faction-culte-de-elle{ background:#ff2a2a; }
+.sector.faction-saint-empire-d-aéris{ background:#2ad2ff; }
+.sector.faction-empire-chimérique{ background:#b865e4; }
+.sector.faction-illuministes{ background:#9589ef; }
+.sector.faction-alliance-architecte{ background:#4a86e8; }
+.sector.faction-neutre{ background:#888; }
