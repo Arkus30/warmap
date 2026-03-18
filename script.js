@@ -72,22 +72,26 @@ if(finalY - popupHeight < 0){
 
 // --- gestion horizontale ---
 let finalX = x;
+let translateX = "-50%";
 
-// marge écran
 const margin = 10;
 
+// bord gauche
 if(finalX - popupWidth/2 < margin){
-    finalX = popupWidth/2 + margin;
+    finalX = margin;
+    translateX = "0%";
 }
 
-if(finalX + popupWidth/2 > container.width - margin){
-    finalX = container.width - popupWidth/2 - margin;
+// bord droit
+else if(finalX + popupWidth/2 > container.width - margin){
+    finalX = container.width - margin;
+    translateX = "-100%";
 }
 
 // application
 popup.style.left = finalX + "px";
 popup.style.top = finalY + "px";
-popup.style.transform = `translate(-50%, ${transformY})`;
+popup.style.transform = `translate(${translateX}, ${transformY})`;
 popup.style.transformOrigin = "center";
 if(transformY === "0%"){
     popup.classList.add("below");
