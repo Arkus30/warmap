@@ -9,10 +9,41 @@ function openPlanetPopup(planet, element){
     popup.className = "planet-popup";
 
     popup.innerHTML = `
-        <div class="popup-header">
+        const factionSlug = (planet.Faction || "neutre")
+.toLowerCase()
+.replaceAll(" ","-")
+.replaceAll("'","-");
+
+popup.innerHTML = `
+    <div class="popup-header">
+        <div class="popup-title-group">
+            <img src="${factionSlug}.png" class="faction-icon">
             <span class="popup-title">${planet.Planète || "Inconnue"}</span>
-            <span class="popup-close">✖</span>
         </div>
+        <span class="popup-close">✖</span>
+    </div>
+
+    <div class="popup-body">
+        <div><b>Faction :</b> ${planet.Faction || "Neutre"}</div>
+        <div><b>Niveau :</b> ${planet.Niveau || "?"}</div>
+        <div><b>PC :</b> ${(planet.Niveau || 1) * 100}</div>
+        <div><b>Modificateurs planétaires :</b> ${
+        planet["Modificateurs Planètaires"] || "Aucun"
+        }</div>
+
+        ${
+            planet.Modificateurs
+            ? `<div><b>Modificateurs :</b> ${planet.Modificateurs}</div>`
+            : ""
+        }
+
+        ${
+            planet.Objectifs
+            ? `<div><b>Objectifs spéciaux :</b> ${planet.Objectifs}</div>`
+            : ""
+        }
+    </div>
+`;
 
         <div class="popup-body">
             <div><b>Faction :</b> ${planet.Faction || "Neutre"}</div>
