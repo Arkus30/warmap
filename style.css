@@ -229,9 +229,28 @@ body{
     border-bottom:8px solid black;
 }
 
-.planet.selected img{
-    transform:scale(1.4);
-    filter:drop-shadow(0 0 6px cyan);
+.faction-culte-de-elle.selected img{
+    filter:drop-shadow(0 0 8px #ff2a2a);
+}
+
+.faction-saint-empire-d-aéris.selected img{
+    filter:drop-shadow(0 0 8px #2ad2ff);
+}
+
+.faction-empire-chimérique.selected img{
+    filter:drop-shadow(0 0 8px #b865e4);
+}
+
+.faction-illuministes.selected img{
+    filter:drop-shadow(0 0 8px #9589ef);
+}
+
+.faction-alliance-architecte.selected img{
+    filter:drop-shadow(0 0 8px #4a86e8);
+}
+
+.faction-neutre.selected img{
+    filter:drop-shadow(0 0 8px #888);
 }
 
 /* factions */
