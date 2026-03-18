@@ -86,7 +86,9 @@ if(finalX + popupWidth/2 > container.width - margin){
 popup.style.left = finalX + "px";
 popup.style.top = finalY + "px";
 popup.style.transform = `translate(-50%, ${transformY})`;
-popup.classList.add("below");
+if(transformY === "0%"){
+    popup.classList.add("below");
+}
 
     const factionClass = "faction-" + factionSlug;
     popup.classList.add(factionClass);
@@ -175,6 +177,11 @@ function loadSectors(data){
 }
 
 async function loadPlanets(){
+
+    div.className = "planet " + ("faction-" + (planet.Faction || "neutre")
+    .toLowerCase()
+    .replaceAll(" ","-")
+    .replaceAll("'","-"));
 
     const response = await fetch(sheetURL);
     const data = await response.json();
