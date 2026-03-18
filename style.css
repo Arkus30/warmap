@@ -205,6 +205,35 @@ body{
     height:auto;
 }
 
+.planet-popup::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+
+    bottom:-8px;
+
+    width:0;
+    height:0;
+
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-top:8px solid black;
+}
+
+.planet-popup.below::after{
+    top:-8px;
+    bottom:auto;
+
+    border-top:none;
+    border-bottom:8px solid black;
+}
+
+.planet.selected img{
+    transform:scale(1.4);
+    filter:drop-shadow(0 0 6px cyan);
+}
+
 /* factions */
 /* frontières visibles */
 
