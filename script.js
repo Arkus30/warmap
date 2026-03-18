@@ -86,10 +86,18 @@ popup.innerHTML = `
 
     // bouton fermer
     popup.querySelector(".popup-close").onclick = () => {
+    popup.classList.remove("show");
+    popup.classList.add("hide");
+
+    setTimeout(() => {
         uiLayer.innerHTML = "";
-    };
+    }, 200);
+};
 
     uiLayer.appendChild(popup);
+    setTimeout(() => {
+        popup.classList.add("show");
+    }, 10);
 }
 
 function loadSectors(data){
