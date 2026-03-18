@@ -229,6 +229,13 @@ body{
     border-bottom:8px solid black;
 }
 
+.planet-popup::after{
+    border-top:8px solid currentColor;
+}
+.planet-popup.below::after{
+    border-bottom:8px solid currentColor;
+}
+
 .faction-culte-de-elle.selected img{
     filter:drop-shadow(0 0 8px #ff2a2a);
 }
