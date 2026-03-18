@@ -159,6 +159,22 @@ body{
     z-index:100;
 }
 
+.planet-popup{
+    opacity:0;
+    transform:translate(-50%, -120%) scale(0.9);
+    transition:all 0.2s ease;
+}
+
+.planet-popup.show{
+    opacity:1;
+    transform:translate(-50%, -100%) scale(1);
+}
+
+.planet-popup.hide{
+    opacity:0;
+    transform:translate(-50%, -120%) scale(0.9);
+}
+
 .popup-header{
     display:flex;
     justify-content:space-between;
@@ -176,6 +192,17 @@ body{
 
 .popup-body div{
     margin-bottom:5px;
+}
+
+.popup-title-group{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.faction-icon{
+    width:18px;
+    height:18px;
 }
 
 /* factions */
