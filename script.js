@@ -1,4 +1,9 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
+const clickSound = new Audio("click.mp3");
+const closeSound = new Audio("close.mp3");
+
+clickSound.volume = 0.6;
+closeSound.volume = 0.6;
 
 function openPlanetPopup(planet, element){
     document.querySelectorAll(".planet").forEach(p => {
@@ -102,6 +107,9 @@ if(transformY === "0%"){
 
     popup.querySelector(".popup-close").onclick = () => {
 
+    closeSound.currentTime = 0;
+    closeSound.play();
+        
     // retirer la sélection visuelle
     document.querySelectorAll(".planet")
         .forEach(p => p.classList.remove("selected"));
@@ -223,6 +231,10 @@ async function loadPlanets(){
 
         div.addEventListener("click", (e) => {
         e.stopPropagation();
+
+        clickSound.currentTime = 0; // permet de rejouer immédiatement
+        clickSound.play();
+            
         openPlanetPopup(planet, div);
         });
     
