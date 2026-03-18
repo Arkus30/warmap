@@ -8,49 +8,26 @@ function openPlanetPopup(planet, element){
     const popup = document.createElement("div");
     popup.className = "planet-popup";
 
+    const factionSlug = (planet.Faction || "neutre")
+    .toLowerCase()
+    .replaceAll(" ","-")
+    .replaceAll("'","-");
+
     popup.innerHTML = `
-        const factionSlug = (planet.Faction || "neutre")
-.toLowerCase()
-.replaceAll(" ","-")
-.replaceAll("'","-");
-
-popup.innerHTML = `
-    <div class="popup-header">
-        <div class="popup-title-group">
-            <img src="${factionSlug}.png" class="faction-icon">
-            <span class="popup-title">${planet.Planète || "Inconnue"}</span>
+        <div class="popup-header">
+            <div class="popup-title-group">
+                <img src="${factionSlug}.png" class="faction-icon">
+                <span class="popup-title">${planet.Planète || "Inconnue"}</span>
+            </div>
+            <span class="popup-close">✖</span>
         </div>
-        <span class="popup-close">✖</span>
-    </div>
-
-    <div class="popup-body">
-        <div><b>Faction :</b> ${planet.Faction || "Neutre"}</div>
-        <div><b>Niveau :</b> ${planet.Niveau || "?"}</div>
-        <div><b>PC :</b> ${(planet.Niveau || 1) * 100}</div>
-        <div><b>Modificateurs planétaires :</b> ${
-        planet["Modificateurs Planètaires"] || "Aucun"
-        }</div>
-
-        ${
-            planet.Modificateurs
-            ? `<div><b>Modificateurs :</b> ${planet.Modificateurs}</div>`
-            : ""
-        }
-
-        ${
-            planet.Objectifs
-            ? `<div><b>Objectifs spéciaux :</b> ${planet.Objectifs}</div>`
-            : ""
-        }
-    </div>
-`;
 
         <div class="popup-body">
             <div><b>Faction :</b> ${planet.Faction || "Neutre"}</div>
             <div><b>Niveau :</b> ${planet.Niveau || "?"}</div>
             <div><b>PC :</b> ${(planet.Niveau || 1) * 100}</div>
             <div><b>Modificateurs planétaires :</b> ${
-            planet["Modificateurs Planètaires"] || "Aucun"
+                planet["Modificateurs Planètaires"] || "Aucun"
             }</div>
 
             ${
@@ -66,7 +43,7 @@ popup.innerHTML = `
             }
         </div>
     `;
-    
+
     const rect = element.getBoundingClientRect();
     const container = document.getElementById("map-container").getBoundingClientRect();
 
@@ -77,24 +54,20 @@ popup.innerHTML = `
     popup.style.top = (y - 10) + "px";
     popup.style.transform = "translate(-50%, -100%)";
 
-    const factionClass = "faction-" + (planet.Faction || "neutre")
-    .toLowerCase()
-    .replaceAll(" ","-")
-    .replaceAll("'","-");
-
+    const factionClass = "faction-" + factionSlug;
     popup.classList.add(factionClass);
 
-    // bouton fermer
     popup.querySelector(".popup-close").onclick = () => {
-    popup.classList.remove("show");
-    popup.classList.add("hide");
+        popup.classList.remove("show");
+        popup.classList.add("hide");
 
-    setTimeout(() => {
-        uiLayer.innerHTML = "";
-    }, 200);
-};
+        setTimeout(() => {
+            uiLayer.innerHTML = "";
+        }, 200);
+    };
 
     uiLayer.appendChild(popup);
+
     setTimeout(() => {
         popup.classList.add("show");
     }, 10);
