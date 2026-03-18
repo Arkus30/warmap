@@ -45,14 +45,43 @@ function openPlanetPopup(planet, element){
     `;
 
     const rect = element.getBoundingClientRect();
-    const container = document.getElementById("map-container").getBoundingClientRect();
+const container = document.getElementById("map-container").getBoundingClientRect();
 
-    const x = rect.left - container.left + rect.width / 2;
-    const y = rect.top - container.top;
+let x = rect.left - container.left + rect.width / 2;
+let y = rect.top - container.top;
 
-    popup.style.left = x + "px";
-    popup.style.top = (y - 10) + "px";
-    popup.style.transform = "translate(-50%, -100%)";
+// taille du popup (approx ou réelle après insertion)
+const popupWidth = 300;
+const popupHeight = 180; // ajuste si besoin
+
+// --- gestion verticale ---
+let finalY = y - 10; // au-dessus par défaut
+let transformY = "-100%";
+
+// si ça dépasse en haut → on met en dessous
+if(finalY - popupHeight < 0){
+    finalY = y + rect.height + 10;
+    transformY = "0%";
+}
+
+// --- gestion horizontale ---
+let finalX = x;
+
+// marge écran
+const margin = 10;
+
+if(finalX - popupWidth/2 < margin){
+    finalX = popupWidth/2 + margin;
+}
+
+if(finalX + popupWidth/2 > container.width - margin){
+    finalX = container.width - popupWidth/2 - margin;
+}
+
+// application
+popup.style.left = finalX + "px";
+popup.style.top = finalY + "px";
+popup.style.transform = `translate(-50%, ${transformY})`;
 
     const factionClass = "faction-" + factionSlug;
     popup.classList.add(factionClass);
