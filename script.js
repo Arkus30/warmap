@@ -178,11 +178,6 @@ function loadSectors(data){
 
 async function loadPlanets(){
 
-    div.className = "planet " + ("faction-" + (planet.Faction || "neutre")
-    .toLowerCase()
-    .replaceAll(" ","-")
-    .replaceAll("'","-"));
-
     const response = await fetch(sheetURL);
     const data = await response.json();
 
@@ -202,7 +197,12 @@ async function loadPlanets(){
         div.dataset.name = planet.Planète || "";
         div.dataset.faction = planet.Faction || "";
         div.dataset.modifiers = planet.Modificateurs || "";
-        div.className = "planet";
+        const factionSlug = (planet.Faction || "neutre")
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-");
+
+    div.className = "planet faction-" + factionSlug;
         div.addEventListener("mouseenter", () => {
         div.classList.add("hovered");
         });
