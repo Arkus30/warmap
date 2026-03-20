@@ -340,8 +340,9 @@ body{
 }
 
 .modifier-line img{
-    width:16px;
-    height:16px;
+    width:20px;   /* 👈 modifie ici */
+    height:20px;  /* 👈 et ici */
+
     object-fit:contain;
 }
 
@@ -351,10 +352,10 @@ body{
 
 .contested-icon{
     position:absolute;
-    top:calc(100% + 6px); /* plus stable */
-    left:50%;
 
-    transform:translate(-50%, 4px);
+    bottom:-10px; /* 👈 clé du fix */
+    left:50%;
+    transform:translateX(-50%);
 
     width:18px;
     height:18px;
