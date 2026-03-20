@@ -324,3 +324,23 @@ body{
 .sector.faction-illuministes{ background:#9589ef; }
 .sector.faction-alliance-architecte{ background:#4a86e8; }
 .sector.faction-neutre{ background:#888; }
+
+.modifiers-list{
+    margin-top:5px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.modifier-line{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+}
+
+.modifier-line img{
+    width:16px;
+    height:16px;
+    object-fit:contain;
+}
