@@ -351,9 +351,9 @@ body{
 
 .contested-icon{
     position:absolute;
-    bottom:-16px;
+    top:100%;
     left:50%;
-    transform:translateX(-50%);
+    transform:translateX(-50%, 4px);
 
     width:18px;
     height:18px;
