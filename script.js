@@ -75,9 +75,10 @@ function openPlanetPopup(planet, element){
             }
             ${
     (planet.Contestée || planet.Contestee || "")
-    .toString()
-    .trim()
-    .toLowerCase() === "oui"
+        .toString()
+        .trim()
+        .toLowerCase() === "1";
+                
     ? (() => {
 
         const totalPC = (planet.Niveau || 1) * 100;
@@ -113,7 +114,7 @@ return `
             </span>
         </div>
         <div class="bar">
-            <div class="fill ${atkSlug} ${atkDominant ? "dominant" : ""}" 
+            <div class="fill faction-${atkSlug} ${atkDominant ? "dominant" : ""}" 
                  style="width:${atkPercent}%"></div>
         </div>
     </div>
@@ -127,7 +128,7 @@ return `
             </span>
         </div>
         <div class="bar">
-            <div class="fill ${defSlug} ${defDominant ? "dominant" : ""}" 
+            <div class="fill faction-${defSlug} ${defDominant ? "dominant" : ""}" 
                  style="width:${defPercent}%"></div>
         </div>
     </div>
