@@ -305,9 +305,14 @@ async function loadPlanets(){
     if(currentPlanet && currentElement){
         const updated = data.find(p => p.Planète === currentPlanet.Planète);
         if(updated){
-            currentPlanet = updated; // important
-            openPlanetPopup(updated, currentElement);
-        }
+    currentPlanet = updated;
+
+    // 🔥 garde la sélection visuelle
+    document.querySelectorAll(".planet").forEach(p => p.classList.remove("selected"));
+    currentElement.classList.add("selected");
+
+    openPlanetPopup(updated, currentElement);
+}
     }
 }
 function updatePlanetsLayer(data){
@@ -331,6 +336,7 @@ function updatePlanetsLayer(data){
 
         div.className = "planet faction-" + factionSlug;
 
+        // hover
         div.addEventListener("mouseenter", () => {
             div.classList.add("hovered");
         });
@@ -339,6 +345,7 @@ function updatePlanetsLayer(data){
             div.classList.remove("hovered");
         });
 
+        // click
         div.addEventListener("click", (e) => {
             e.stopPropagation();
 
@@ -364,14 +371,22 @@ function updatePlanetsLayer(data){
         .replaceAll(" ","-");
 
         const possible = [
-            "rocheuse","gazeuse","océanique","végétation-dense",
-            "chaleur-ardente","chaleur-intense","froid-intense",
-            "trou-noir","aucun-modificateur",
-            "terraformation-chimérique","artificielle"
+            "rocheuse",
+            "gazeuse",
+            "océanique",
+            "végétation-dense",
+            "chaleur-ardente",
+            "chaleur-intense",
+            "froid-intense",
+            "trou-noir",
+            "aucun-modificateur",
+            "terraformation-chimérique",
+            "artificielle"
         ];
 
         img.src = possible.includes(climate) ? climate + ".png" : "rocheuse.png";
 
+        // label
         const label = document.createElement("div");
         label.className = "planet-label";
         label.innerText = planet.Planète;
@@ -379,7 +394,28 @@ function updatePlanetsLayer(data){
         div.appendChild(img);
         div.appendChild(label);
 
-        // contestée
+        // ✅ MODIFICATEUR (RESTAURÉ)
+        const hasModifier = (planet.Modificateurs || "").trim() !== "";
+        if(hasModifier){
+            const modIcon = document.createElement("img");
+            modIcon.src = "modificateur.png";
+            modIcon.className = "modifier-icon";
+            div.appendChild(modIcon);
+        }
+
+        // ✅ CAPITALE (RESTAURÉ)
+        const isCapital = (planet.Capitale || "")
+        .trim()
+        .toLowerCase() === "oui";
+
+        if(isCapital){
+            const capitalIcon = document.createElement("img");
+            capitalIcon.src = "capitale.png";
+            capitalIcon.className = "capital-icon";
+            div.appendChild(capitalIcon);
+        }
+
+        // ✅ CONTESTÉ (RESTAURÉ)
         const isContested = (planet.Contestée || planet.Contestee || "")
         .toString()
         .trim()
