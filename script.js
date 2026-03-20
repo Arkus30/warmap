@@ -314,6 +314,25 @@ async function loadPlanets(){
 
     div.appendChild(capitalIcon);
     }
+    // --- PLANÈTE CONTESTÉE ---
+const isContested = (planet.Contestée || planet.Contestee || "")
+    .toString()
+    .trim()
+    .toLowerCase();
+
+if(isContested === "oui" || isContested === "true" || isContested === "1"){
+
+    // icône sous la planète
+    const contestedIcon = document.createElement("img");
+    contestedIcon.src = "conteste.png";
+    contestedIcon.className = "contested-icon";
+
+    div.appendChild(contestedIcon);
+
+    // effet visuel sur la planète
+    div.classList.add("contested");
+}
+   
     layer.appendChild(div);
     });
 
