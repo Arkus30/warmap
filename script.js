@@ -22,6 +22,76 @@ function openPlanetPopup(planet, element){
     .replaceAll(" ","-")
     .replaceAll("'","-");
 
+    const isContested = (planet.Contestée || planet.Contestee || "")
+    .toString()
+    .trim()
+    .toLowerCase();
+
+const isBattle =
+    isContested === "oui" ||
+    isContested === "true" ||
+    isContested === "1";
+
+let battleHTML = "";
+
+if(isBattle){
+
+    const totalPC = (planet.Niveau || 1) * 100;
+
+    const atkPC = parseInt(planet["PC Attaquant"]) || 0;
+    const defPC = parseInt(planet["PC Defenseur"]) || 0;
+
+    const atkPercent = Math.min((atkPC / totalPC) * 100, 100);
+    const defPercent = Math.min((defPC / totalPC) * 100, 100);
+
+    const atkSlug = (planet.Attaquant || "na")
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-");
+
+    const defSlug = (planet.Defenseur || "na")
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-");
+
+    const atkDominant = atkPercent > defPercent;
+    const defDominant = defPercent > atkPercent;
+
+    battleHTML = `
+    <div class="battle-section">
+
+        <div class="battle-bar">
+            <div class="battle-label">
+                <img src="${atkSlug}.png">
+                <span>
+                    ${planet.Attaquant || "Attaquant"} 
+                    (${atkPC}/${totalPC}) - ${atkPercent.toFixed(0)}%
+                </span>
+            </div>
+            <div class="bar">
+                <div class="fill faction-${atkSlug} ${atkDominant ? "dominant" : ""}" 
+                     style="width:${atkPercent}%"></div>
+            </div>
+        </div>
+
+        <div class="battle-bar">
+            <div class="battle-label">
+                <img src="${defSlug}.png">
+                <span>
+                    ${planet.Defenseur || "Défenseur"} 
+                    (${defPC}/${totalPC}) - ${defPercent.toFixed(0)}%
+                </span>
+            </div>
+            <div class="bar">
+                <div class="fill faction-${defSlug} ${defDominant ? "dominant" : ""}" 
+                     style="width:${defPercent}%"></div>
+            </div>
+        </div>
+
+    </div>
+    `;
+}
+
     popup.innerHTML = `
         <div class="popup-header">
             <div class="popup-title-group">
@@ -73,77 +143,8 @@ function openPlanetPopup(planet, element){
                 ? `<div><b>Objectifs spéciaux :</b> ${planet.Objectifs}</div>`
                 : ""
             }
-            ${
-const isContested = (planet.Contestée || planet.Contestee || "")
-    .toString()
-    .trim()
-    .toLowerCase();
 
-const isBattle =
-    isContested === "oui" ||
-    isContested === "true" ||
-    isContested === "1";
-
-${ isBattle ? (() => {
-
-        const totalPC = (planet.Niveau || 1) * 100;
-
-        const atkPC = parseInt(planet["PC Attaquant"]) || 0;
-        const defPC = parseInt(planet["PC Defenseur"]) || 0;
-
-        const atkPercent = Math.min((atkPC / totalPC) * 100, 100);
-        const defPercent = Math.min((defPC / totalPC) * 100, 100);
-
-        const atkSlug = (planet.Attaquant || "na")
-            .toLowerCase()
-            .replaceAll(" ","-")
-            .replaceAll("'","-");
-
-        const defSlug = (planet.Defenseur || "na")
-            .toLowerCase()
-            .replaceAll(" ","-")
-            .replaceAll("'","-");
-
-        const atkDominant = atkPercent > defPercent;
-        const defDominant = defPercent > atkPercent;
-
-return `
-<div class="battle-section">
-
-    <div class="battle-bar">
-        <div class="battle-label">
-            <img src="${atkSlug}.png">
-            <span>
-                ${planet.Attaquant || "Attaquant"} 
-                (${atkPC}/${totalPC}) - ${atkPercent.toFixed(0)}%
-            </span>
-        </div>
-        <div class="bar">
-            <div class="fill faction-${atkSlug} ${atkDominant ? "dominant" : ""}" 
-                 style="width:${atkPercent}%"></div>
-        </div>
-    </div>
-
-    <div class="battle-bar">
-        <div class="battle-label">
-            <img src="${defSlug}.png">
-            <span>
-                ${planet.Defenseur || "Défenseur"} 
-                (${defPC}/${totalPC}) - ${defPercent.toFixed(0)}%
-            </span>
-        </div>
-        <div class="bar">
-            <div class="fill faction-${defSlug} ${defDominant ? "dominant" : ""}" 
-                 style="width:${defPercent}%"></div>
-        </div>
-    </div>
-
-</div>
-`;
-    })()
-    : ""
-}
-        </div>
+        ${battleHTML}
     `;
 
     const rect = element.getBoundingClientRect();
