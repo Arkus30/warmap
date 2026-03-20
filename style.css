@@ -344,3 +344,50 @@ body{
     height:16px;
     object-fit:contain;
 }
+
+/* ========================= */
+/* PLANÈTES CONTESTÉES */
+/* ========================= */
+
+.contested-icon{
+    position:absolute;
+    bottom:-16px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:18px;
+    height:18px;
+
+    pointer-events:none;
+    z-index:6;
+
+    animation:pulseIcon 1.5s infinite;
+}
+
+/* effet pulsation icône */
+@keyframes pulseIcon{
+    0%{ transform:translateX(-50%) scale(1); opacity:1; }
+    50%{ transform:translateX(-50%) scale(1.25); opacity:0.7; }
+    100%{ transform:translateX(-50%) scale(1); opacity:1; }
+}
+
+/* effet planète contestée */
+.planet.contested img{
+    animation:planetPulse 1.5s infinite;
+}
+
+/* glow dynamique */
+@keyframes planetPulse{
+    0%{
+        transform:scale(1);
+        filter:drop-shadow(0 0 4px red);
+    }
+    50%{
+        transform:scale(1.15);
+        filter:drop-shadow(0 0 12px red);
+    }
+    100%{
+        transform:scale(1);
+        filter:drop-shadow(0 0 4px red);
+    }
+}
