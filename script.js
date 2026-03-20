@@ -83,8 +83,8 @@ function openPlanetPopup(planet, element){
 
         const totalPC = (planet.Niveau || 1) * 100;
 
-        const atkPC = parseInt(planet["PC Attaquant"] || 0);
-        const defPC = parseInt(planet["PC Defenseur"] || 0);
+        const atkPC = parseInt(planet["PC Attaquant"]) || 0;
+        const defPC = parseInt(planet["PC Defenseur"]) || 0;
 
         const atkPercent = Math.min((atkPC / totalPC) * 100, 100);
         const defPercent = Math.min((defPC / totalPC) * 100, 100);
