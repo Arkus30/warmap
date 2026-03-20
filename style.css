@@ -351,9 +351,10 @@ body{
 
 .contested-icon{
     position:absolute;
-    top:100%;
+    top:calc(100% + 6px); /* plus stable */
     left:50%;
-    transform:translate(-50%, 4px);
+
+    transform:translateX(-50%); /* uniquement horizontal */
 
     width:18px;
     height:18px;
@@ -366,9 +367,9 @@ body{
 
 /* effet pulsation icône */
 @keyframes pulseIcon{
-    0%{ transform:translate(-50%, 4px) scale(1); opacity:1; }
-    50%{ transform:translate(-50%, 4px) scale(1.25); opacity:0.7; }
-    100%{ transform:translate(-50%, 4px) scale(1); opacity:1; }
+    0%{ transform:translateX(-50%) scale(1); opacity:1; }
+    50%{ transform:translateX(-50%) scale(1.25); opacity:0.7; }
+    100%{ transform:translateX(-50%) scale(1); opacity:1; }
 }
 
 /* effet planète contestée */
@@ -415,8 +416,10 @@ body{
 }
 
 .battle-label img{
-    width:14px;
-    height:14px;
+    width:20px;
+    height:20px;
+    object-fit:contain;
+    transform:translateY(1px); /* petit alignement vertical */
 }
 
 .bar{
