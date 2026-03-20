@@ -74,12 +74,17 @@ function openPlanetPopup(planet, element){
                 : ""
             }
             ${
-    (planet.Contestée || planet.Contestee || "")
-        .toString()
-        .trim()
-        .toLowerCase() === "1";
-                
-    ? (() => {
+const isContested = (planet.Contestée || planet.Contestee || "")
+    .toString()
+    .trim()
+    .toLowerCase();
+
+const isBattle =
+    isContested === "oui" ||
+    isContested === "true" ||
+    isContested === "1";
+
+${ isBattle ? (() => {
 
         const totalPC = (planet.Niveau || 1) * 100;
 
@@ -89,12 +94,12 @@ function openPlanetPopup(planet, element){
         const atkPercent = Math.min((atkPC / totalPC) * 100, 100);
         const defPercent = Math.min((defPC / totalPC) * 100, 100);
 
-        const atkSlug = (planet.Attaquant || "")
+        const atkSlug = (planet.Attaquant || "na")
             .toLowerCase()
             .replaceAll(" ","-")
             .replaceAll("'","-");
 
-        const defSlug = (planet.Defenseur || "")
+        const defSlug = (planet.Defenseur || "na")
             .toLowerCase()
             .replaceAll(" ","-")
             .replaceAll("'","-");
