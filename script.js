@@ -2,6 +2,9 @@ const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxz
 const clickSound = new Audio("click.mp3");
 const closeSound = new Audio("close.mp3");
 
+let currentPlanet = null;
+let currentElement = null;
+
 clickSound.volume = 0.6;
 closeSound.volume = 0.6;
 
@@ -293,12 +296,23 @@ async function loadPlanets(){
     const response = await fetch(sheetURL);
     const data = await response.json();
 
-    loadSectors(data);
-
     console.log("Planets loaded:", data);
 
-    const layer = document.getElementById("planets-layer");
+    loadSectors(data);
+    updatePlanetsLayer(data);
 
+    // 🔥 UPDATE POPUP SI OUVERTE
+    if(currentPlanet && currentElement){
+        const updated = data.find(p => p.Planète === currentPlanet.Planète);
+        if(updated){
+            currentPlanet = updated; // important
+            openPlanetPopup(updated, currentElement);
+        }
+    }
+}
+function updatePlanetsLayer(data){
+
+    const layer = document.getElementById("planets-layer");
     layer.innerHTML = "";
 
     data.forEach(planet => {
@@ -309,29 +323,34 @@ async function loadPlanets(){
         div.dataset.name = planet.Planète || "";
         div.dataset.faction = planet.Faction || "";
         div.dataset.modifiers = planet.Modificateurs || "";
+
         const factionSlug = (planet.Faction || "neutre")
         .toLowerCase()
         .replaceAll(" ","-")
         .replaceAll("'","-");
 
-    div.className = "planet faction-" + factionSlug;
+        div.className = "planet faction-" + factionSlug;
+
         div.addEventListener("mouseenter", () => {
-        div.classList.add("hovered");
+            div.classList.add("hovered");
         });
 
         div.addEventListener("mouseleave", () => {
-        div.classList.remove("hovered");
+            div.classList.remove("hovered");
         });
 
         div.addEventListener("click", (e) => {
-        e.stopPropagation();
+            e.stopPropagation();
 
-        clickSound.currentTime = 0; // permet de rejouer immédiatement
-        clickSound.play();
-            
-        openPlanetPopup(planet, div);
+            clickSound.currentTime = 0;
+            clickSound.play();
+
+            currentPlanet = planet;
+            currentElement = div;
+
+            openPlanetPopup(planet, div);
         });
-    
+
         const x = parseFloat(String(planet.X).replace(",", "."));
         const y = parseFloat(String(planet.Y).replace(",", "."));
 
@@ -339,75 +358,50 @@ async function loadPlanets(){
         div.style.top = (y * 100) + "%";
 
         const img = document.createElement("img");
-        const isCapital = (planet.Capitale || "")
-        .trim()
-        .toLowerCase() === "oui";
-        console.log(planet.Planète, "Capitale =", planet.Capitale);
-        const hasModifier = (planet.Modificateurs || "").trim() !== "";
-        if(hasModifier){
 
-        const modIcon = document.createElement("img");
-        modIcon.src = "modificateur.png";
-        modIcon.className = "modifier-icon";
-
-        div.appendChild(modIcon);
-    }
         const climate = (planet.Climat || "rocheuse")
         .toLowerCase()
         .replaceAll(" ","-");
 
         const possible = [
-        "rocheuse",
-        "gazeuse",
-        "océanique",
-        "végétation-dense",
-        "chaleur-ardente",
-        "chaleur-intense",
-        "froid-intense",
-        "trou-noir",
-        "aucun-modificateur",
-        "terraformation-chimérique",
-        "artificielle"
+            "rocheuse","gazeuse","océanique","végétation-dense",
+            "chaleur-ardente","chaleur-intense","froid-intense",
+            "trou-noir","aucun-modificateur",
+            "terraformation-chimérique","artificielle"
         ];
 
         img.src = possible.includes(climate) ? climate + ".png" : "rocheuse.png";
+
         const label = document.createElement("div");
         label.className = "planet-label";
         label.innerText = planet.Planète;
 
         div.appendChild(img);
         div.appendChild(label);
-        if(isCapital){
 
-        const capitalIcon = document.createElement("img");
-        capitalIcon.src = "capitale.png";
-        capitalIcon.className = "capital-icon";
+        // contestée
+        const isContested = (planet.Contestée || planet.Contestee || "")
+        .toString()
+        .trim()
+        .toLowerCase();
 
-    div.appendChild(capitalIcon);
-    }
-    // --- PLANÈTE CONTESTÉE ---
-const isContested = (planet.Contestée || planet.Contestee || "")
-    .toString()
-    .trim()
-    .toLowerCase();
+        if(isContested === "oui" || isContested === "true" || isContested === "1"){
 
-if(isContested === "oui" || isContested === "true" || isContested === "1"){
+            const contestedIcon = document.createElement("img");
+            contestedIcon.src = "conteste.png";
+            contestedIcon.className = "contested-icon";
 
-    // icône sous la planète
-    const contestedIcon = document.createElement("img");
-    contestedIcon.src = "conteste.png";
-    contestedIcon.className = "contested-icon";
+            div.appendChild(contestedIcon);
+            div.classList.add("contested");
+        }
 
-    div.appendChild(contestedIcon);
-
-    // effet visuel sur la planète
-    div.classList.add("contested");
-}
-   
-    layer.appendChild(div);
+        layer.appendChild(div);
     });
-
 }
 
-loadPlanets();
-setInterval(loadPlanets, 30000);
+
+loadPlanets(); // premier chargement
+
+setInterval(() => {
+    loadPlanets(); // refresh toutes les 30s
+}, 30000);
