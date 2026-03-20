@@ -353,9 +353,9 @@ body{
 .contested-icon{
     position:absolute;
 
-    bottom:-10px; /* 👈 clé du fix */
+    bottom:-10px;
     left:50%;
-    transform:translateX(-50%);
+    transform:translateX(calc(-50% - 1px)); /* 👈 correction fine */
 
     width:18px;
     height:18px;
