@@ -353,7 +353,7 @@ body{
     position:absolute;
     top:100%;
     left:50%;
-    transform:translateX(-50%, 4px);
+    transform:translate(-50%, 4px);
 
     width:18px;
     height:18px;
@@ -439,4 +439,30 @@ body{
 
 .fill.defender{
     background:#4da6ff;
+}
+
+/* couleur basée sur faction */
+.fill.faction-culte-de-elle{ background:#ff2a2a; }
+.fill.faction-saint-empire-d-aéris{ background:#2ad2ff; }
+.fill.faction-empire-chimérique{ background:#b865e4; }
+.fill.faction-illuministes{ background:#9589ef; }
+.fill.faction-alliance-architecte{ background:#4a86e8; }
+.fill.faction-neutre{ background:#888; }
+
+/* barre dominante */
+.fill.dominant{
+    animation:dominantPulse 1s infinite;
+}
+
+/* effet glow */
+@keyframes dominantPulse{
+    0%{
+        filter:brightness(1);
+    }
+    50%{
+        filter:brightness(1.6) drop-shadow(0 0 6px currentColor);
+    }
+    100%{
+        filter:brightness(1);
+    }
 }
