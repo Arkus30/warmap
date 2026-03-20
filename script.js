@@ -98,31 +98,42 @@ function openPlanetPopup(planet, element){
             .replaceAll(" ","-")
             .replaceAll("'","-");
 
-        return `
-        <div class="battle-section">
+        const atkDominant = atkPercent > defPercent;
+        const defDominant = defPercent > atkPercent;
 
-            <div class="battle-bar">
-                <div class="battle-label">
-                    <img src="${atkSlug}.png">
-                    <span>${planet.Attaquant || "Attaquant"} (${atkPC}/${totalPC})</span>
-                </div>
-                <div class="bar">
-                    <div class="fill attacker" style="width:${atkPercent}%"></div>
-                </div>
-            </div>
+return `
+<div class="battle-section">
 
-            <div class="battle-bar">
-                <div class="battle-label">
-                    <img src="${defSlug}.png">
-                    <span>${planet.Defenseur || "Défenseur"} (${defPC}/${totalPC})</span>
-                </div>
-                <div class="bar">
-                    <div class="fill defender" style="width:${defPercent}%"></div>
-                </div>
-            </div>
-
+    <div class="battle-bar">
+        <div class="battle-label">
+            <img src="${atkSlug}.png">
+            <span>
+                ${planet.Attaquant || "Attaquant"} 
+                (${atkPC}/${totalPC}) - ${atkPercent.toFixed(0)}%
+            </span>
         </div>
-        `;
+        <div class="bar">
+            <div class="fill ${atkSlug} ${atkDominant ? "dominant" : ""}" 
+                 style="width:${atkPercent}%"></div>
+        </div>
+    </div>
+
+    <div class="battle-bar">
+        <div class="battle-label">
+            <img src="${defSlug}.png">
+            <span>
+                ${planet.Defenseur || "Défenseur"} 
+                (${defPC}/${totalPC}) - ${defPercent.toFixed(0)}%
+            </span>
+        </div>
+        <div class="bar">
+            <div class="fill ${defSlug} ${defDominant ? "dominant" : ""}" 
+                 style="width:${defPercent}%"></div>
+        </div>
+    </div>
+
+</div>
+`;
     })()
     : ""
 }
