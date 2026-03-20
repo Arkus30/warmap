@@ -73,6 +73,59 @@ function openPlanetPopup(planet, element){
                 ? `<div><b>Objectifs spéciaux :</b> ${planet.Objectifs}</div>`
                 : ""
             }
+            ${
+    (planet.Contestée || planet.Contestee || "")
+    .toString()
+    .trim()
+    .toLowerCase() === "oui"
+    ? (() => {
+
+        const totalPC = (planet.Niveau || 1) * 100;
+
+        const atkPC = parseInt(planet["PC Attaquant"] || 0);
+        const defPC = parseInt(planet["PC Defenseur"] || 0);
+
+        const atkPercent = Math.min((atkPC / totalPC) * 100, 100);
+        const defPercent = Math.min((defPC / totalPC) * 100, 100);
+
+        const atkSlug = (planet.Attaquant || "")
+            .toLowerCase()
+            .replaceAll(" ","-")
+            .replaceAll("'","-");
+
+        const defSlug = (planet.Defenseur || "")
+            .toLowerCase()
+            .replaceAll(" ","-")
+            .replaceAll("'","-");
+
+        return `
+        <div class="battle-section">
+
+            <div class="battle-bar">
+                <div class="battle-label">
+                    <img src="${atkSlug}.png">
+                    <span>${planet.Attaquant || "Attaquant"} (${atkPC}/${totalPC})</span>
+                </div>
+                <div class="bar">
+                    <div class="fill attacker" style="width:${atkPercent}%"></div>
+                </div>
+            </div>
+
+            <div class="battle-bar">
+                <div class="battle-label">
+                    <img src="${defSlug}.png">
+                    <span>${planet.Defenseur || "Défenseur"} (${defPC}/${totalPC})</span>
+                </div>
+                <div class="bar">
+                    <div class="fill defender" style="width:${defPercent}%"></div>
+                </div>
+            </div>
+
+        </div>
+        `;
+    })()
+    : ""
+}
         </div>
     `;
 
