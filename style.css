@@ -355,7 +355,7 @@ body{
 
     bottom:-10px;
     left:50%;
-    transform:translateX(calc(-50% - 1px)); /* 👈 correction fine */
+    transform:translateX(calc(-50% - 3px)); /* 👈 correction fine */
 
     width:18px;
     height:18px;
