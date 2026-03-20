@@ -39,11 +39,34 @@ function openPlanetPopup(planet, element){
                 planet["Modificateurs Planètaires"] || "Aucun"
             }</div>
 
+                ${
+    planet.Modificateurs
+    ? `<div>
+        <b>Modificateurs :</b>
+        <div class="modifiers-list">
             ${
                 planet.Modificateurs
-                ? `<div><b>Modificateurs :</b> ${planet.Modificateurs}</div>`
-                : ""
+                .split(",")
+                .map(m => {
+                    const clean = m.trim();
+                    const file = clean
+                        .toLowerCase()
+                        .replaceAll(" ","-")
+                        .replaceAll("'","-");
+
+                    return `
+                        <div class="modifier-line">
+                            <img src="${file}.png" onerror="this.style.display='none'">
+                            <span>${clean}</span>
+                        </div>
+                    `;
+                })
+                .join("")
             }
+        </div>
+    </div>`
+    : ""
+}
 
             ${
                 planet.Objectifs
