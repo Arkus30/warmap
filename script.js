@@ -8,6 +8,22 @@ let currentElement = null;
 clickSound.volume = 0.6;
 closeSound.volume = 0.6;
 
+async function updateStats(){
+    const res = await fetch("http://localhost:3000/stats");
+    const data = await res.json();
+
+    document.getElementById("total").innerText = data.total;
+
+    document.getElementById("chim").innerText = data.factions["empire-chimerique"];
+    document.getElementById("illu").innerText = data.factions["illuministes"];
+    document.getElementById("aeris").innerText = data.factions["saint-empire-aeris"];
+    document.getElementById("culte").innerText = data.factions["culte-de-elle"];
+    document.getElementById("archis").innerText = data.factions["alliance-architecte"];
+}
+
+setInterval(updateStats, 10000);
+updateStats();
+
 function openPlanetPopup(planet, element){
     document.querySelectorAll(".planet").forEach(p => {
     p.classList.remove("selected");
