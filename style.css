@@ -477,3 +477,38 @@ body{
         filter:brightness(1);
     }
 }
+
+#stats-box{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    background:rgba(0,0,0,0.85);
+    border:2px solid cyan;
+    border-radius:8px;
+
+    padding:10px 14px;
+
+    color:white;
+    font-family:Arial;
+    font-size:13px;
+
+    z-index:20;
+
+    min-width:180px;
+}
+
+.stats-title{
+    font-weight:bold;
+    color:cyan;
+    margin-bottom:6px;
+}
+
+.stats-total{
+    margin-bottom:6px;
+    font-size:14px;
+}
+
+.stats-factions div{
+    margin-bottom:2px;
+}
