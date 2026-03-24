@@ -1,4 +1,7 @@
 const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Feuille%201";
+const modifiersURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Modificateurs";
+let modifiersData = {};
+
 const clickSound = new Audio("click.mp3");
 const closeSound = new Audio("close.mp3");
 
@@ -19,6 +22,24 @@ async function updateStats(){
     document.getElementById("aeris").innerText = data.factions["saint-empire-aeris"];
     document.getElementById("culte").innerText = data.factions["culte-de-elle"];
     document.getElementById("archis").innerText = data.factions["alliance-architecte"];
+}
+
+async function loadModifiers(){
+
+    const res = await fetch(modifiersURL);
+    const data = await res.json();
+
+    modifiersData = {};
+
+    data.forEach(m => {
+        const key = (m.Nom || "")
+            .toLowerCase()
+            .trim();
+
+        modifiersData[key] = m.Description || "Aucune description";
+    });
+
+    console.log("Modifiers loaded:", modifiersData);
 }
 
 setInterval(updateStats, 10000);
@@ -143,12 +164,21 @@ if(isBattle){
                         .replaceAll(" ","-")
                         .replaceAll("'","-");
 
-                    return `
-                        <div class="modifier-line">
-                            <img src="${file}.png" onerror="this.style.display='none'">
-                            <span>${clean}</span>
-                        </div>
-                    `;
+                    const key = clean.toLowerCase();
+
+const desc = modifiersData[key] || "Aucune description";
+
+const file = clean
+    .toLowerCase()
+    .replaceAll(" ","-")
+    .replaceAll("'","-");
+
+return `
+    <div class="modifier-line" data-desc="${desc}">
+        <img src="${file}.png" onerror="this.style.display='none'">
+        <span>${clean}</span>
+    </div>
+`;
                 })
                 .join("")
             }
@@ -451,9 +481,9 @@ function updatePlanetsLayer(data){
     });
 }
 
-
+loadModifiers();
 loadPlanets(); // premier chargement
 
 setInterval(() => {
-    loadPlanets(); // refresh toutes les 30s
-}, 30000);
+    loadPlanets(); // refresh toutes les 10s
+}, 10000);
