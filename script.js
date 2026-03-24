@@ -34,6 +34,7 @@ async function loadModifiers(){
     data.forEach(m => {
         const key = (m.Nom || "")
             .toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // enlève accents
             .trim();
 
         modifiersData[key] = m.Description || "Aucune description";
