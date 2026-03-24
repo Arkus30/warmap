@@ -158,28 +158,24 @@ if(isBattle){
                 planet.Modificateurs
                 .split(",")
                 .map(m => {
-                    const clean = m.trim();
-                    const file = clean
-                        .toLowerCase()
-                        .replaceAll(" ","-")
-                        .replaceAll("'","-");
+    const clean = m.trim();
 
-                    const key = clean.toLowerCase();
+    const key = clean.toLowerCase();
 
-const desc = modifiersData[key] || "Aucune description";
+    const desc = modifiersData[key] || "Aucune description";
 
-const file = clean
-    .toLowerCase()
-    .replaceAll(" ","-")
-    .replaceAll("'","-");
+    const file = clean
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-");
 
-return `
-    <div class="modifier-line" data-desc="${desc}">
-        <img src="${file}.png" onerror="this.style.display='none'">
-        <span>${clean}</span>
-    </div>
-`;
-                })
+    return `
+        <div class="modifier-line" data-desc="${desc}">
+            <img src="${file}.png" onerror="this.style.display='none'">
+            <span>${clean}</span>
+        </div>
+    `;
+})
                 .join("")
             }
         </div>
@@ -481,8 +477,12 @@ function updatePlanetsLayer(data){
     });
 }
 
-loadModifiers();
-loadPlanets(); // premier chargement
+async function init(){
+    await loadModifiers();
+    await loadPlanets();
+}
+
+init();
 
 setInterval(() => {
     loadPlanets(); // refresh toutes les 10s
