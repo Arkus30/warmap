@@ -512,3 +512,38 @@ body{
 .stats-factions div{
     margin-bottom:2px;
 }
+
+.modifier-line{
+    position:relative;
+    cursor:help;
+}
+
+/* tooltip */
+.modifier-line::after{
+    content:attr(data-desc);
+
+    position:absolute;
+    bottom:120%;
+    left:50%;
+    transform:translateX(-50%);
+
+    background:black;
+    color:white;
+    border:1px solid cyan;
+    padding:6px 8px;
+    border-radius:6px;
+
+    font-size:12px;
+    white-space:nowrap;
+
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.2s ease;
+
+    z-index:200;
+}
+
+/* affichage */
+.modifier-line:hover::after{
+    opacity:1;
+}
