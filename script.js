@@ -37,7 +37,13 @@ async function loadModifiers(){
             .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // enlève accents
             .trim();
 
-        modifiersData[key] = m.Description || "Aucune description";
+        modifiersData[key] = {
+    desc: m.Description || "Aucune description",
+    faction: (m.Faction || "neutre")
+        .toLowerCase()
+        .replaceAll(" ","-")
+        .replaceAll("'","-")
+};
     });
 
     console.log("Modifiers loaded:", modifiersData);
@@ -165,7 +171,7 @@ if(isBattle){
     .toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-    const desc = modifiersData[key] || "Aucune description";
+    const data = modifiersData[key] || {desc:"Aucune description", faction:"neutre"};
 
     const file = clean
         .toLowerCase()
@@ -173,11 +179,11 @@ if(isBattle){
         .replaceAll("'","-");
 
     return `
-        <div class="modifier-line" data-desc="${desc}">
-            <img src="${file}.png" onerror="this.style.display='none'">
-            <span>${clean}</span>
-        </div>
-    `;
+    <div class="modifier-line faction-${data.faction}" data-desc="${data.desc}">
+        <img src="${file}.png" onerror="this.style.display='none'">
+        <span>${clean}</span>
+    </div>
+`;
 })
                 .join("")
             }
