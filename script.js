@@ -38,7 +38,13 @@ async function loadModifiers(){
             .trim();
 
         modifiersData[key] = {
-    desc: m.Description || "Aucune description",
+    desc:
+    m.Description ||
+    m.description ||
+    m.Desc ||
+    m.desc ||
+    m["Description "] ||
+    "Aucune description",
     faction: (m.Faction || "neutre")
         .toLowerCase()
         .replaceAll(" ","-")
