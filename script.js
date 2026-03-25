@@ -161,7 +161,9 @@ if(isBattle){
                 .map(m => {
     const clean = m.trim();
 
-    const key = clean.toLowerCase();
+    const key = clean
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     const desc = modifiersData[key] || "Aucune description";
 
