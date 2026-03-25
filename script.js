@@ -32,9 +32,9 @@ async function loadModifiers(){
     modifiersData = {};
 
     data.forEach(m => {
-        const key = (m.Nom || "")
+        const key = (m.Modificateur || "")
             .toLowerCase()
-            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // enlève accents
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
             .trim();
 
         modifiersData[key] = {
