@@ -4,6 +4,10 @@ let modifiersData = {};
 
 const clickSound = new Audio("click.mp3");
 const closeSound = new Audio("close.mp3");
+const music = document.getElementById("bg-music");
+    document.addEventListener("click", () => {
+        music.play();
+    }, { once: true });
 
 let currentPlanet = null;
 let currentElement = null;
