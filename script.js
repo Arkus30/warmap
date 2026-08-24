@@ -5,10 +5,12 @@ let modifiersData = {};
 const music = document.getElementById('bg-music');
 let started = false;
 
-document.body.addEventListener('click', () => {
-  if (!started) {
-    music.play().catch(() => {});
-    started = true;
+document.addEventListener("click", () => {
+  if (!musicStarted) {
+    music.play().catch(err => {
+      console.log("Impossible de lancer la musique :", err);
+    });
+    musicStarted = true;
   }
 }, { once: true });
 
