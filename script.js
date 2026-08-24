@@ -2,17 +2,21 @@ const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxz
 const modifiersURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Modificateurs";
 let modifiersData = {};
 
-const music = document.getElementById('bg-music');
-let started = false;
+const music = document.getElementById("bg-music");
+let musicStarted = false;
 
 document.addEventListener("click", () => {
-  if (!musicStarted) {
-    music.play().catch(err => {
-      console.log("Impossible de lancer la musique :", err);
-    });
-    musicStarted = true;
+  if (!musicStarted && music) {
+    music.play()
+      .then(() => {
+        console.log("Musique démarrée !");
+        musicStarted = true;
+      })
+      .catch(err => {
+        console.log("Erreur musique :", err);
+      });
   }
-}, { once: true });
+}, { once: true, capture: true });
 
 const clickSound = new Audio("click.mp3");
 const closeSound = new Audio("close.mp3");
