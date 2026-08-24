@@ -2,6 +2,16 @@ const sheetURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxz
 const modifiersURL = "https://opensheet.elk.sh/15VmVU4c4awO3rbVCv2PgqpoZb_CT-nlXRDxzuqBAiiQ/Modificateurs";
 let modifiersData = {};
 
+const music = document.getElementById('bg-music');
+let started = false;
+
+document.body.addEventListener('click', () => {
+  if (!started) {
+    music.play().catch(() => {});
+    started = true;
+  }
+}, { once: true });
+
 const clickSound = new Audio("click.mp3");
 const closeSound = new Audio("close.mp3");
 const music = document.getElementById("bg-music");
