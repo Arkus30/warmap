@@ -451,7 +451,7 @@ function updatePlanetsLayer(data){
             "trou-noir",
             "aucun-modificateur",
             "terraformation-chimérique",
-            "artificielle"
+            "monde-usine"
         ];
 
         img.src = possible.includes(climate) ? climate + ".png" : "rocheuse.png";
