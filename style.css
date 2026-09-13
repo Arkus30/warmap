@@ -234,24 +234,16 @@ body{
     filter:drop-shadow(0 0 8px var(--faction-color, cyan));
 }
 
-.faction-culte-de-elle.selected img{
-    filter:drop-shadow(0 0 8px #ff2a2a);
+.faction-empire-arkeyan.selected img{
+    filter:drop-shadow(0 0 8px #a71422);
 }
 
-.faction-saint-empire-d-aéris.selected img{
-    filter:drop-shadow(0 0 8px #2ad2ff);
+.faction-conseil-originel.selected img{
+    filter:drop-shadow(0 0 8px #518f00);
 }
 
 .faction-empire-chimérique.selected img{
     filter:drop-shadow(0 0 8px #b865e4);
-}
-
-.faction-illuministes.selected img{
-    filter:drop-shadow(0 0 8px #9589ef);
-}
-
-.faction-alliance-architecte.selected img{
-    filter:drop-shadow(0 0 8px #4a86e8);
 }
 
 .faction-neutre.selected img{
@@ -261,30 +253,12 @@ body{
 /* factions */
 /* frontières visibles */
 
-.faction-culte-de-elle{ --faction-color:#ff2a2a; }
-.faction-saint-empire-d-aéris{ --faction-color:#2ad2ff; }
 .faction-empire-chimérique{ --faction-color:#b865e4; }
-.faction-illuministes{ --faction-color:#9589ef; }
-.faction-alliance-architecte{ --faction-color:#4a86e8; }
+.faction-empire-arkeyan{ --faction-color:#a71422; }
+.faction-conseil-originel{ --faction-color:#518f00; }
 .faction-neutre{ --faction-color:#888; }
 
 /* couleurs dynamiques popup */
-
-.planet-popup.faction-culte-de-elle{
-    border-color:#ff2a2a;
-    --faction-color:#ff2a2a;
-}
-.planet-popup.faction-culte-de-elle .popup-header{
-    color:#ff2a2a;
-}
-
-.planet-popup.faction-saint-empire-d-aéris{
-    border-color:#2ad2ff;
-    --faction-color:#2ad2ff;
-}
-.planet-popup.faction-saint-empire-d-aéris .popup-header{
-    color:#2ad2ff;
-}
 
 .planet-popup.faction-empire-chimérique{
     border-color:#b865e4;
@@ -294,20 +268,20 @@ body{
     color:#b865e4;
 }
 
-.planet-popup.faction-illuministes{
-    border-color:#9589ef;
-    --faction-color:#9589ef;
+.planet-popup.faction-empire-arkeyan{
+    border-color:#a71422;
+    --faction-color:#a71422;
 }
-.planet-popup.faction-illuministes .popup-header{
-    color:#9589ef;
+.planet-popup.faction-empire-arkeyan .popup-header{
+    color:#a71422;
 }
 
-.planet-popup.faction-alliance-architecte{
-    border-color:#4a86e8;
-    --faction-color:#4a86e8;
+.planet-popup.faction-conseil-originel{
+    border-color:#518f00;
+    --faction-color:#518f00;
 }
-.planet-popup.faction-alliance-architecte .popup-header{
-    color:#4a86e8;
+.planet-popup.faction-conseil-originel .popup-header{
+    color:#518f00;
 }
 
 .planet-popup.faction-neutre{
@@ -318,11 +292,9 @@ body{
     color:#888;
 }
 
-.sector.faction-culte-de-elle{ background:#ff2a2a; }
-.sector.faction-saint-empire-d-aéris{ background:#2ad2ff; }
 .sector.faction-empire-chimérique{ background:#b865e4; }
-.sector.faction-illuministes{ background:#9589ef; }
-.sector.faction-alliance-architecte{ background:#4a86e8; }
+.sector.faction-empire-arkeyan{ background:#a71422; }
+.sector.faction-conseil-originel{ background:#518f00; }
 .sector.faction-neutre{ background:#888; }
 
 .modifiers-list{
@@ -340,8 +312,8 @@ body{
 }
 
 .modifier-line img{
-    width:20px;   /* 👈 modifie ici */
-    height:20px;  /* 👈 et ici */
+    width:20px;  
+    height:20px;  
 
     object-fit:contain;
 }
@@ -427,7 +399,7 @@ body{
     width:20px;
     height:20px;
     object-fit:contain;
-    transform:translateY(1px); /* petit alignement vertical */
+    transform:translateY(1px); 
 }
 
 .bar{
@@ -453,11 +425,9 @@ body{
 }
 
 /* couleur basée sur faction */
-.fill.faction-culte-de-elle{ background:#ff2a2a; }
-.fill.faction-saint-empire-d-aéris{ background:#2ad2ff; }
 .fill.faction-empire-chimérique{ background:#b865e4; }
-.fill.faction-illuministes{ background:#9589ef; }
-.fill.faction-alliance-architecte{ background:#4a86e8; }
+.fill.faction-conseil-originel{ background:#518f00; }
+.fill.faction-empire-arkeyan{ background:#a71422; }
 .fill.faction-neutre{ background:#888; }
 
 /* barre dominante */
@@ -548,9 +518,7 @@ body{
     opacity:1;
 }
 
-.modifier-line.faction-culte-de-elle{ --faction-color:#ff2a2a; }
-.modifier-line.faction-saint-empire-d-aéris{ --faction-color:#2ad2ff; }
 .modifier-line.faction-empire-chimérique{ --faction-color:#b865e4; }
-.modifier-line.faction-illuministes{ --faction-color:#9589ef; }
-.modifier-line.faction-alliance-architecte{ --faction-color:#4a86e8; }
+.modifier-line.faction-empire-arkeyan{ --faction-color:#a71422; }
+.modifier-line.faction-conseil-originel{ --faction-color:#518f00; }
 .modifier-line.faction-neutre{ --faction-color:#888; }
