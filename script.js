@@ -34,10 +34,8 @@ async function updateStats(){
     document.getElementById("total").innerText = data.total;
 
     document.getElementById("chim").innerText = data.factions["empire-chimerique"];
-    document.getElementById("illu").innerText = data.factions["illuministes"];
-    document.getElementById("aeris").innerText = data.factions["saint-empire-aeris"];
-    document.getElementById("culte").innerText = data.factions["culte-de-elle"];
-    document.getElementById("archis").innerText = data.factions["alliance-architecte"];
+    document.getElementById("arke").innerText = data.factions["empire-arkeyan"];
+    document.getElementById("cons").innerText = data.factions["conseil-originel"];
 }
 
 async function loadModifiers(){
@@ -231,7 +229,7 @@ let y = rect.top - container.top;
 
 uiLayer.appendChild(popup);
 
-// taille du popup (approx ou réelle après insertion)
+// taille du popup
 const popupWidth = popup.offsetWidth;
 const popupHeight = popup.offsetHeight;
 
@@ -239,7 +237,6 @@ const popupHeight = popup.offsetHeight;
 let finalY = y - 10; // au-dessus par défaut
 let transformY = "-100%";
 
-// si ça dépasse en haut → on met en dessous
 if(finalY - popupHeight < 0){
     finalY = y + rect.height + 10;
     transformY = "0%";
@@ -374,13 +371,13 @@ async function loadPlanets(){
     loadSectors(data);
     updatePlanetsLayer(data);
 
-    // 🔥 UPDATE POPUP SI OUVERTE
+    
     if(currentPlanet && currentElement){
         const updated = data.find(p => p.Planète === currentPlanet.Planète);
         if(updated){
     currentPlanet = updated;
 
-    // 🔥 garde la sélection visuelle
+    
     document.querySelectorAll(".planet").forEach(p => p.classList.remove("selected"));
     currentElement.classList.add("selected");
 
@@ -467,7 +464,7 @@ function updatePlanetsLayer(data){
         div.appendChild(img);
         div.appendChild(label);
 
-        // ✅ MODIFICATEUR (RESTAURÉ)
+        
         const hasModifier = (planet.Modificateurs || "").trim() !== "";
         if(hasModifier){
             const modIcon = document.createElement("img");
@@ -476,7 +473,7 @@ function updatePlanetsLayer(data){
             div.appendChild(modIcon);
         }
 
-        // ✅ CAPITALE (RESTAURÉ)
+       
         const isCapital = (planet.Capitale || "")
         .trim()
         .toLowerCase() === "oui";
@@ -488,7 +485,7 @@ function updatePlanetsLayer(data){
             div.appendChild(capitalIcon);
         }
 
-        // ✅ CONTESTÉ (RESTAURÉ)
+       
         const isContested = (planet.Contestée || planet.Contestee || "")
         .toString()
         .trim()
