@@ -514,4 +514,4 @@ init();
 
 setInterval(() => {
     loadPlanets(); // refresh toutes les 10s
-}, 10000);
+}, 60000);
